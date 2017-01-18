@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-
+ Meteor.subscribe('tasks');
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
@@ -22,7 +22,7 @@ class App extends Component {
 
     // Find the text field via the React ref
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
+    console.log("text on client " + text)
     Meteor.call('tasks.insert', text);
 
     // Clear form
@@ -58,8 +58,16 @@ class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>Todo List</h1>
- 
+            <h1>Todo List: Incomplete # ({this.props.incompleteCount})</h1>
+ <label className="hide-completed">
+            <input
+              type="checkbox"
+              readOnly
+              checked={this.state.hideCompleted}
+              onClick={this.toggleHideCompleted.bind(this)}
+            />
+            Hide Completed Tasks
+          </label>
           <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
             <input
               type="text"
@@ -79,7 +87,7 @@ class App extends Component {
 
 App.propTypes = {
   tasks: PropTypes.array.isRequired,
-  
+  incompleteCount: PropTypes.number.isRequired,
 };
 
 export default createContainer(() => {
@@ -87,6 +95,6 @@ export default createContainer(() => {
 
   return {
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-   
+    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
   };
 }, App);
