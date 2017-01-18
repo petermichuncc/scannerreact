@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
- Meteor.subscribe('tasks');
+
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
@@ -92,8 +92,9 @@ App.propTypes = {
 
 export default createContainer(() => {
   Meteor.subscribe('tasks');
-
+    console.log("trying to export task")
   return {
+
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
     incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
   };
