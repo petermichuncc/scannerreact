@@ -6,6 +6,8 @@ import {Layout} from './app.jsx';
 import { Welcome, Task} from '../imports/ui/Task.jsx';
 import App from '../imports/ui/App.jsx';
  Meteor.subscribe('tasks');
+
+
 FlowRouter.route("/", {
   action() {
     mount(Layout, {

@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
  import { Tasks } from '../api/tasks.js';
 // Task component - represents a single todo item
-export const Welcome = ({name}) => (
+/*export const Welcome = ({name}) => (
     <div>
         Hello, {name}.
     </div>
-);
+);*/
 //removed export default class
 
-export class Task extends Component {
+export default class Task extends Component {
  toggleChecked() {
     // Set the checked property to the opposite of its current value
     Tasks.update(this.props.task._id, {
