@@ -12,7 +12,6 @@ FlowRouter.route('/', {
 });
 */}
 
-
 FlowRouter.route('/menu', {
   action: function() {
     BlazeLayout.render("layout", {content: "menunew"});
@@ -34,12 +33,16 @@ FlowRouter.route('/history', {
     BlazeLayout.render("layout", {content: "history"});
   }
 });
+FlowRouter.route('/datasearch', {
+  action: function() {
+    BlazeLayout.render("layout", {content: "datasearch"});
+  }
+});
 FlowRouter.route('/first', {
   action: function() {
     BlazeLayout.render("layout", {content: "first"});
   }
 });
-
 
 
 

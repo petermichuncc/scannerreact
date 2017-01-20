@@ -1,0 +1,227 @@
+<template name="graph">
+<head>
+    
+    <!-- <script src="parts.js"></script>-->
+   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    
+     <script type="text/javascript" src="js/materialize.mins.js"></script>
+      <script type="text/javascript" src="js/materialize.js"></script>
+
+
+</head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap-material-design.css" />
+
+
+
+
+
+
+<!--  TEST -->
+<div class="center">
+ <div id="floater"></div>
+
+
+<img src="logo.jpg " class="z-depth-3  center  "><br><br>
+
+
+
+            <div id="centered_box_graph"  class="z-depth-5 center ">
+
+     <div class="center">
+        {{#if $.Session.equals 'countnew' -1}}
+ {{>testgraphnew}}
+ 
+<div class="form-group mytext">
+    
+    <select id="s1" class="form-control drop" required>
+      <option value="datacom">Datacom</option>
+       <option value="packing">Packing</option>
+       <option value="manual">Manual</option>
+       <option value="scd">SCD</option>
+       <option value="manualboxes">Manual Boxes</option>
+       <option value="metals">Metals</option>
+       <option value="raceway">Raceway</option>
+       <option value="wiu">WIU</option>
+       <option value="autoboxes">Auto boxes</option>
+       <option value="husky">Husky</option>
+    </select>
+
+</div>
+
+
+ <button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button> <br>
+
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Graph Menu</button> 
+        
+{{/if}}
+
+      {{#if $.Session.equals 'countnew' 0}}
+
+
+
+ <button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Graph Menu</button> 
+   {{/if}} 
+    {{#if $.Session.equals 'countnew' 1}}
+
+<div class="form-group mytext">
+     <label for="" class=""><span class=""> Please select an option</span></label>
+    <select id="s1" class="form-control drop" required>
+      <option value="operator">Operator graphs</option>
+       <option value="workcenter">Workcenter graphs</option>
+        <option value="vs">Temp vs Permanent graph</option>
+    </select>
+
+</div>
+
+<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button> 
+
+
+      {{/if}} 
+
+
+
+ {{#if $.Session.equals 'choice' "operator"}}
+  {{#if $.Session.equals 'countnew' 2}}
+<label for="" class=""><span class=""> Please enter an operator's name </span></label><br>
+{{>opsearchtest}}
+<br>
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+
+<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>
+
+{{/if}}
+ {{#if $.Session.equals 'countnew' 3}}
+<!-- I need to grab the choice and use it to determine which graphs to show -->
+
+
+<div class="form-group mytext">
+    <label for="" class=""><span class=""> Please select an option</span></label>
+    <select id="s1" class="form-control drop" required>
+         <option value="all">Averages for all workcenters</option>
+       <option value="single">Productivity average by workcenter</option>
+       <option value="overall">Overall average of all workcenters</option>
+    </select>
+
+</div>
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
+<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>  
+ 
+{{/if}}
+
+{{#if $.Session.equals 'countnew' 4}}
+<!-- Here I will have a drop down that only shows the work centers associated with this operator-->
+<!-- Session variable for their choice -->
+{{#if $.Session.equals 'operatorchoice' "single"}}
+<!--basically Here I will show a copy of the testgraphworkcell that takes into consideration the operator-->
+
+{{>opworkcell}}
+
+
+
+
+<div class="form-group mytext">
+    {{>searchoperator}}
+    
+</div>
+
+
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
+<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>  
+ 
+{{/if}}
+{{#if $.Session.equals 'operatorchoice' "overall"}}
+<!--basically Here I will show a copy of the testgraphworkcell that takes into consideration the operator-->
+
+{{>opaverageworkcell}}
+
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
+  
+{{/if}}
+{{#if $.Session.equals 'operatorchoice' "all"}}
+<!--basically Here I will show a copy of the testgraphworkcell that takes into consideration the operator-->
+
+{{>allopworkcell}}
+
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
+  
+{{/if}}
+
+
+  {{/if}} 
+  {{/if}} 
+ {{#if $.Session.equals 'choice' "workcenter"}}
+ 
+ {{#if $.Session.equals 'countnew' 2}}
+ <!-- Here the user needs to select if they want to look at a shift of a specific work center or
+ if they want to compare the average of all work centers-->
+<div class="form-group mytext">
+    <label for="" class=""><span class=""> Please select an option</span></label>
+    <select id="s1" class="form-control drop" required>
+      <option value="shift">View Workcenter Shifts</option>
+       <option value="all">Compare All Workcenters</option>
+       
+    </select>
+
+</div>
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>  
+
+{{/if}}  
+ {{#if $.Session.equals 'countnew' 3}}
+ {{#if $.Session.equals 'workcenterchoice' "shift"}}
+
+ {{>testgraphworkcell}}
+<div class="form-group mytext">
+    {{>search2}}
+    
+</div>
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+ 
+
+  
+{{/if}}
+ {{#if $.Session.equals 'workcenterchoice' "all"}}
+
+{{>allworkcell}}
+<div class="form-group mytext">
+    
+    <select id="s1" class="form-control drop" required>
+      <option value="datacom">Datacom</option>
+       <option value="packing">Packing</option>
+       <option value="manual">Manual</option>
+       <option value="scd">SCD</option>
+       <option value="manualboxes">Manual Boxes</option>
+       <option value="metals">Metals</option>
+       <option value="raceway">Raceway</option>
+       <option value="wiu">WIU</option>
+       <option value="autoboxes">Auto boxes</option>
+       <option value="husky">Husky</option>
+    </select>
+
+</div>
+ <button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button> <br>
+
+ <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+  
+
+
+
+ 
+ 
+ 
+
+{{/if}}  
+{{/if}}  
+    {{/if}} 
+
+
+
+
+
+</div>
+</div>
+</div>
+
+</template>

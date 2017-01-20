@@ -1,0 +1,353 @@
+
+<template name="three">
+<head>
+
+      <link type="text/css" rel="stylesheet" href="css/bootstrap-material-design.css"  />
+  
+    
+</head>
+
+
+<script src=https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js></script>
+
+<body class={{$.Session.get 'color'}}>
+<!-- choose which good function to show here -->
+ {{#if $.Session.equals 'section' "raceway"}}
+        {{good}}  
+
+          {{/if}}
+          {{#if $.Session.equals 'section' "blister1"}}
+        
+        {{good1}}  
+
+          {{/if}}
+
+{{scan}}
+ {{colorFxn}}
+<div class="outer-div">
+<span class="toasttextbig center">
+<div id="snackbar" class="center">{{partnumber}}</div>
+</span></div>
+     {{#if $.Session.equals 'start' 3}}
+{{piecesperbag}}
+ {{bagsperbox}}
+  {{kanbanPieces}}
+ {{output}}
+ {{/if}}
+<div class="center" id="repairlog_container">
+<img src="logo.jpg " class="z-depth-3"><br><br>
+            <div id="centered_box"  class="z-depth-5">
+          
+          {{#if $.Session.equals 'counter' -1}}
+
+      {{kanbancomponent}}
+        {{check}}
+          {{/if}}
+       
+        
+        <!-- Change the text here-->
+        {{#if $.Session.equals 'start' 3}}
+         <div class="center">
+             
+ Start production
+  <br>    
+<button class="btn btn-default 10 #78909c indigo z-depth-3 whitetext" type="submit">Start a new job</button>
+<br>
+
+
+</div>
+{{/if}}
+        {{#if $.Session.equals 'start' 1}}
+      Current Department: {{section}}  
+      <br>
+        <button class="btn btn-default 9 #78909c indigo z-depth-3 whitetext" type="submit">Start a new job</button>
+       
+
+        <br>
+        <button class="btn btn-default section #78909c indigo z-depth-3 whitetext" type="submit">Change department</button>
+        <!-- Make this button change the text shown for which department is running-->
+      <!-- <button class="btn btn-default 9 #78909c indigo z-depth-3 whitetext" type="submit">Raceway</button>-->
+{{/if}}
+{{#if $.Session.equals 'start' 0}}
+       <div class="center ">
+       <!-- Change the text here -->
+       {{#if $.Session.equals 'section' "raceway"}}
+        {{text}}  
+
+          {{/if}}
+          {{#if $.Session.equals 'section' "blister1"}}
+        
+        {{text1}}  
+
+          {{/if}}
+         {{kanbanamount}}
+     
+
+        <input type="initials" name="initials"  required class="form-control mytext"  id="initials" placeholder="" data-disable-touch-keyboard autofocus autocomplete="off">
+       
+       </div>
+          
+      
+       
+      <!-- create two divs one left aligned and one left aligned with margin/padding-->
+     
+     {{part}}
+     
+    {{desc}}
+{{#if $.Session.equals 'counter' -2}}
+<button class="btn btn-default 8 #78909c indigo z-depth-3 whitetext " type="submit">Next</button><br>
+<button class="btn btn-default 0 #78909c indigo z-depth-3 whitetext " type="submit">Previous</button>
+
+{{else}}
+{{#if kanbancheck}}
+<button class="btn btn-default 2  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNorm">Kanban Ticket Override</button>
+<br>
+{{/if}}
+<!-- Only show specific check based on which department is selected -->
+
+   {{#if $.Session.equals 'section' "raceway"}}       
+{{#if bagcheck}}
+
+<button class="btn btn-default 17 20  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNormbag">Printed Bag/Box Label Override</button>
+<br>
+{{/if}}
+{{/if}}
+  {{#if $.Session.equals 'section' "blister1"}}
+{{#if bagcheck1}}
+
+<button class="btn btn-default 17 20  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNormbag">Blister Card/Label Override</button>
+<br>
+{{/if}}
+{{/if}}
+
+<button class="btn btn-default #78909c 10 indigo z-depth-3 whitetext center" style="outline:none;-moz-outline:none" hidefocus="true" type="submit">Restart job</button>
+<br>
+
+
+{{/if}}
+{{/if}}
+
+
+
+</div>
+</div>
+
+<script>
+function myFunction(e) {
+    //document.getElementById("demo").innerHTML = "Hello World";
+ // e.stopPropagation();
+$( ".ch" ).hide();
+
+$("#initials").focus();
+  /*
+if (Modernizr.touch) {
+    console.log("success here")
+    // Disable keyboard by adding readonly attribute to field
+     
+    $("#initials").blur();
+   
+    
+  }
+    
+$("#initials").focus();
+*/
+
+
+}
+</script>
+ 
+
+
+<!-- Button trigger modal -->
+<!--
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalNorm">
+    Launch Normal Form
+</button>
+-->
+<!-- Modal -->
+<div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Kanban Override
+                </h4>
+            </div>
+            
+            <!-- Modal Body -->
+           <div class="modal-body">
+                
+              <div class="form-group">
+                    <label for="exampleInputPassword1">Initials</label>
+                      <input type="text" class="form-control txt_name2"
+                           placeholder="initials"/>
+                  </div>
+                 
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control txt_name"
+                           placeholder="Password"/>
+                  </div>
+                
+              
+               
+                <!--try out submit button and grab data from the input -->
+                
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                            Close
+                </button>-->
+                <button type="button" class="btn btn-primary 15">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalNormbag" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Printed Box/Bag Label Override
+                </h4>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+              <div class="form-group">
+                    <label for="exampleInputPassword1">Initials</label>
+                      <input type="text" class="form-control txt_name2bagbox"
+                           placeholder="initials"/>
+                  </div>
+                 
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control txt_namebagbox"
+                           placeholder="Password"/>
+                  </div>
+                
+              
+               
+                <!--try out submit button and grab data from the input -->
+                
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                            Close
+                </button>-->
+            <!-- Add two buttons to choose from -->
+           
+                <button type="button" class="btn btn-primary 18">
+                    Printed Bag Override
+                </button>
+              
+                <button type="button" class="btn btn-primary 19">
+                    Box Label Override
+                </button>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="modal fade" id="myModalNormbagsingle" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    {{bagchecktext}}
+                </h4>
+            </div>
+            
+          
+          <div class="modal-body">
+                
+              <div class="form-group">
+                    <label for="exampleInputPassword1">Initials</label>
+                      <input type="text" class="form-control txt_name2"
+                           placeholder="initials"/>
+                  </div>
+                 
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control txt_name"
+                           placeholder="Password"/>
+                  </div>
+                
+              
+               
+              
+                
+            </div>
+            
+        
+            <div class="modal-footer">
+               
+          
+
+                <button type="button" class="btn btn-primary 15">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+-->
+
+
+
+</body>
+
+</template>
+
+<!--
+
+ <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header center centertest">
+          
+          <h4 class="modal-title colortest blue modaltest">The color is: {{colorDescription}} </h4>
+        </div>
+        <div class="modal-body center">
+            <img class="img-responsive center" height="100%" width="100%" src={{color}} alt="image" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-primary modal-close">OK</button>
+        </div>
+      </div>
+    </div>
+
+ -->

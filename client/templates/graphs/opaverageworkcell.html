@@ -1,0 +1,47 @@
+<template name="opaverageworkcell">
+<script src="/http://code.highcharts.com/highcharts-3d.js"></script>
+<div id="container"></div>
+<!--Show when this occured-->
+{{timeframe}}
+
+{{> highchartsHelper chartId="test" chartWidth="90%" charHeight="90%" chartObject=topGenresChart}}
+<form class="form-inline testform">
+    <div class="form-group">
+        <div class="form-group">
+            <div class="input-group input-field col" style="width: 220px;"> 
+
+                 <input id="start" placeholder="MM-DD-YYYY" type="text" class="validate required text1" autofocus autocomplete="off" required />
+                <label for="" class="fontbigger"> Start Date </label>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group input-field col" style="width: 250px;"> 
+
+                <input id="end" placeholder="MM-DD-YYYY" type="text" class="validate required text1" autofocus autocomplete="off" required />
+                <label for="" class="fontbigger">End Date </label>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+{{#if $.Session.equals 'loading' 1}}
+   <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+
+{{/if}}
+
+  <script>
+
+</script>
+</template>
