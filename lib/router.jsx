@@ -11,6 +11,11 @@ FlowRouter.route('/', {
   }
 });
 */}
+FlowRouter.route('/', {
+  action: function() {
+    BlazeLayout.render("layout", {content: "three"});
+  }
+});
 
 FlowRouter.route('/menu', {
   action: function() {

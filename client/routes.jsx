@@ -8,13 +8,17 @@ import App from '../imports/ui/App.jsx';
  Meteor.subscribe('tasks');
 
 
-FlowRouter.route("/", {
+FlowRouter.route("/test", {
   action() {
     mount(Layout, {
         content: (<App/>)
     });
   }
 });
+
+
+
+
 
 /*
 FlowRouter.route("/", {
