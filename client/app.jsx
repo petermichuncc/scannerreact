@@ -1,6 +1,45 @@
 import React from 'react';
 
 // define and export our Layout component
+/*
+So here I'm designing a layout to route certain data through
+I can try out the data entry program using this 
+
+
+*/
+export const dataLayout = ({content}) => (
+
+<body className="">
+ 
+ <div id="dataentry_container" className="center" >
+<img src="logo.jpg " className="z-depth-3"/><br/><br/>
+
+            <div id="centered_box_data"  className="z-depth-5 center">
+        
+ <div className="center">
+ 
+ {content}
+      
+
+</div>
+
+</div><br/>
+
+
+
+</div>
+
+
+
+
+ 
+</body>
+
+    
+);
+
+
+
 export const Layout = ({content}) => (
     <div>
        

@@ -17,3 +17,8 @@ git pull
 make sure you stick to your branch
 
 git checkout -b frontend
+
+
+
+
+SET MONGO_URL=mongodb://localhost:27017/mongoBlog

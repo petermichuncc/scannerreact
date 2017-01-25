@@ -51,7 +51,7 @@ console.log("this is data "+ data)
     }
 });
 
-
+/*
 Template.opsearchtest.rendered = function() {
   Meteor.typeahead.inject();
-};
+};*/

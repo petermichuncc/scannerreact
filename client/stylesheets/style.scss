@@ -489,6 +489,15 @@ margin: 0 auto;
 
    //margin: 0 auto;
 }
+.dataentry_container{
+    position : absolute;    
+    width    : 1200px;
+    height   : 380px;
+    left     : 50%;
+    top      : 50%;
+    margin-left : -600px; /* half of the width  */
+    margin-top  : -190px; /* half of the height */
+}
 #dataentry_container{
     position : absolute;    
     width    : 1200px;
