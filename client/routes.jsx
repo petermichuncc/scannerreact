@@ -25,6 +25,14 @@ Convert the first template into a react app if possible
 
 */
 
+/*
+FlowRouter.route("/test", {
+  action() {
+    mount(dataLayout, {
+        content: (<First/>)
+    });
+  }
+});*/
 
 FlowRouter.route("/test", {
   action() {
@@ -33,7 +41,6 @@ FlowRouter.route("/test", {
     });
   }
 });
-
 
 
 

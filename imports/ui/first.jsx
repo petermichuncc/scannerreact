@@ -31,6 +31,7 @@ import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
 
+
 // App component - represents the whole app
 class First extends Component {
   constructor(props) {
@@ -81,10 +82,10 @@ class First extends Component {
   render() {
     return (
 
-<button class="btn btn-default 0 z-depth-3 whitetext" id="test" type="submit">Start data entry</button>
+<button className="btn btn-default 0 z-depth-3 whitetext" id="test" type="submit">Start data entry</button>
 
 
-      
+
     );
   }
 }

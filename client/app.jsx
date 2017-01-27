@@ -7,9 +7,13 @@ I can try out the data entry program using this
 
 
 */
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export const dataLayout = ({content}) => (
 
-<body className="">
+<MuiThemeProvider>
+
+
  
  <div id="dataentry_container" className="center" >
 <img src="logo.jpg " className="z-depth-3"/><br/><br/>
@@ -19,7 +23,7 @@ export const dataLayout = ({content}) => (
  <div className="center">
  
  {content}
-      
+       <RaisedButton label="Default" />
 
 </div>
 
@@ -31,9 +35,9 @@ export const dataLayout = ({content}) => (
 
 
 
-
+</MuiThemeProvider>
  
-</body>
+
 
     
 );
