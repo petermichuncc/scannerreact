@@ -33,7 +33,7 @@ FlowRouter.route("/test", {
     });
   }
 });*/
-
+/* Work on making this app a single page application */
 FlowRouter.route("/test", {
   action() {
     mount(dataLayout, {

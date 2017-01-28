@@ -30,7 +30,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
-
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // App component - represents the whole app
 class First extends Component {
@@ -81,10 +82,11 @@ class First extends Component {
 
   render() {
     return (
+      <div>
+<RaisedButton className="0 z-depth-3" id="test" type="submit" label="Start data entry" zDepth={3} />
 
-<button className="btn btn-default 0 z-depth-3 whitetext" id="test" type="submit">Start data entry</button>
 
-
+</div>
 
     );
   }

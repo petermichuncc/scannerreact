@@ -23,7 +23,7 @@ export const dataLayout = ({content}) => (
  <div className="center">
  
  {content}
-       <RaisedButton label="Default" />
+       
 
 </div>
 
