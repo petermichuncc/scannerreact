@@ -34,6 +34,12 @@ FlowRouter.route("/test", {
   }
 });*/
 /* Work on making this app a single page application */
+/*
+Test out different ways to show a specific component based on a session variable or click event
+
+
+*/
+
 FlowRouter.route("/test", {
   action() {
     mount(dataLayout, {
