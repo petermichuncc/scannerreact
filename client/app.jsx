@@ -16,7 +16,7 @@ export const dataLayout = ({content}) => (
 
  
  <div id="dataentry_container" className="center" >
-<img src="logo.jpg " className="z-depth-3"/><br/><br/>
+<img src="logo.jpg" className="z-depth-3"/><br/><br/>
 
             <div id="centered_box_data"  className="z-depth-5 center">
         
@@ -42,7 +42,7 @@ export const dataLayout = ({content}) => (
     
 );
 
-
+/*
 
 export const Layout = ({content}) => (
     <div>
@@ -57,3 +57,5 @@ export const Welcome = ({name}) => (
         Hello, {name}.
     </div>
 );
+
+*/

@@ -60,7 +60,9 @@ class First extends Component {
       hideCompleted: !this.state.hideCompleted,
     });
   }
-
+myClick() {
+        alert("Hello World!");
+    }
   renderTasks() {
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
@@ -81,9 +83,10 @@ class First extends Component {
   }
 
   render() {
+
     return (
       <div>
-<RaisedButton className="0 z-depth-3" id="test" type="submit" label="Start data entry" zDepth={3} />
+<RaisedButton className="0" id="test" type="submit" label="Start data entry" zDepth={3}  onClick={this.myClick}/>
 
 
 </div>
