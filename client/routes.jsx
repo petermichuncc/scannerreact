@@ -58,6 +58,8 @@ render(
 
 */
 
+/*
+//Working solution
 FlowRouter.route("/test/", {
 //test/:postId
 
@@ -70,18 +72,14 @@ FlowRouter.route("/test/", {
 
 
       dataLayout, {
-      /*maybe this is a return render 
-      whatever the content is it is routed through the 
-      flow router through react mount to the appropriate location
-
-      */
+     
 
         content: ( <First/>)
     });
   }
 });
 
-
+*/
 
 
 /*
@@ -96,3 +94,43 @@ FlowRouter.route("/", {
 */
 
 //content: (<Welcome name="arunoda"/>)
+WelcomeComponent = React.createClass({
+  render() {
+    return <div>
+      <h1>Hello, {this.props.name}</h1>
+    </div>
+  }
+});
+
+MainLayout = React.createClass({
+  render() {
+    return <div>
+      <header>
+        This is our header
+      </header>
+      <main>
+        {this.props.content}
+      </main>
+      <footer>
+        This is our footer
+      </footer>
+    </div>
+  }
+});
+import { Router, Route, browserHistory } from 'react-router';
+FlowRouter.route("/test", {
+  action: function() {
+   
+     mount(
+      //Here is the main layout to route through
+
+
+      MainLayout, {
+     //Here I'm testing out react router
+
+        content:(  <Router history={ browserHistory }>
+      <Route path="/test" component={ WelcomeComponent } />
+    </Router>)
+    });
+  }
+});
