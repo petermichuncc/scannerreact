@@ -117,20 +117,42 @@ MainLayout = React.createClass({
     </div>
   }
 });
-import { Router, Route, browserHistory } from 'react-router';
+
 FlowRouter.route("/test", {
-  action: function() {
-   
-     mount(
-      //Here is the main layout to route through
-
-
-      MainLayout, {
-     //Here I'm testing out react router
-
-        content:(  <Router history={ browserHistory }>
-      <Route path="/test" component={ WelcomeComponent } />
-    </Router>)
-    });
+    action(params, queryParams) {
+     mount(dataLayout, {
+  content: <First/>
+})
   }
 });
+
+Cookies = React.createClass({
+  render() {
+    return (
+      <div className="cookie">
+      <h3>I'd like to eat a <span style={{color: 'orange'}}>{this.props.cookie}</span> cookie.</h3>
+      </div>
+    );
+  }
+});
+
+FlowRouter.route( '/cookies/:cookie', {
+  name: 'cookies',
+  action( params ) {
+    mount(dataLayout, {
+ content:<Cookies cookie={params.cookie} />
+})
+   
+  }
+});
+
+FlowRouter.route( '/cookies', {
+  name: 'cookies',
+  action() {
+    mount(dataLayout, {
+ content: <Cookies/>
+})
+    
+  }
+});
+

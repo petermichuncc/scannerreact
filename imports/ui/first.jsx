@@ -61,7 +61,8 @@ class First extends Component {
     });
   }
 myClick() {
-        alert("Hello World!");
+  //This triggers
+       // alert("Hello World!");
     }
   renderTasks() {
     let filteredTasks = this.props.tasks;
