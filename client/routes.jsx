@@ -8,7 +8,25 @@ import { Welcome, Task} from '../imports/ui/Task.jsx';
 import App from '../imports/ui/App.jsx';
 import First from '../imports/ui/first.jsx';
  Meteor.subscribe('tasks');
+let pathFor = ( path, params ) => {
+  let query = params && params.query ? FlowRouter._qs.parse( params.query ) : {};
+  return FlowRouter.path( path, params, query );
+};
 
+let urlFor = ( path, params ) => {
+  return Meteor.absoluteUrl( pathFor( path, params ) );
+};
+
+let currentRoute = ( route ) => {
+  FlowRouter.watchPathChange();
+  return FlowRouter.current().route.name === route ? 'active' : '';
+};
+
+FlowHelpers = {
+  pathFor: pathFor,
+  urlFor: urlFor,
+  currentRoute: currentRoute
+};
 /*
 This will route all content through here
 */
@@ -126,16 +144,26 @@ FlowRouter.route("/test", {
   }
 });
 
+
+AnotherComponent = React.createClass({
+  render() {
+    return (
+      <a href={FlowHelpers.pathFor( 'cookies/:cookie', { cookie: 'peanut-butter' } )}>To the peanut butter!</a>
+    );
+  }
+});
 Cookies = React.createClass({
   render() {
     return (
       <div className="cookie">
+  <a href={FlowHelpers.pathFor( 'cookies/:cookie', { cookie: 'peanut-butter' } )}>To the peanut butter!</a>
       <h3>I'd like to eat a <span style={{color: 'orange'}}>{this.props.cookie}</span> cookie.</h3>
+     
       </div>
+
     );
   }
 });
-
 FlowRouter.route( '/cookies/:cookie', {
   name: 'cookies',
   action( params ) {
@@ -143,6 +171,15 @@ FlowRouter.route( '/cookies/:cookie', {
  content:<Cookies cookie={params.cookie} />
 })
    
+  }
+});
+
+FlowRouter.route( '/cookies', {
+  name: 'cookies',
+  action() {
+   mount(dataLayout, {
+ content:<Cookies />
+})
   }
 });
 
