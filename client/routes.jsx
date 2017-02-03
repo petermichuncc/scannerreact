@@ -156,7 +156,10 @@ Cookies = React.createClass({
   render() {
     return (
       <div className="cookie">
-  <a href={FlowHelpers.pathFor( 'cookies/:cookie', { cookie: 'peanut-butter' } )}>To the peanut butter!</a>
+  <a href={FlowHelpers.pathFor( '/cookies/:cookie', { cookie: 'peanut-butter' } )}>To the peanut butter!</a>
+    <a href={FlowHelpers.pathFor( '/cookies/', { cookie: 'peanut-butter' } )}>To the main page</a>
+
+    {/*<a href={FlowHelpers.pathFor( '../oranges', { cookie: 'peanut-butter' } )}>To the orange!</a>*/}
       <h3>I'd like to eat a <span style={{color: 'orange'}}>{this.props.cookie}</span> cookie.</h3>
      
       </div>
@@ -164,6 +167,24 @@ Cookies = React.createClass({
     );
   }
 });
+Oranges = React.createClass({
+  render() {
+    return (
+      <div className="cookie">
+  <a href={FlowHelpers.pathFor( ':cookie', { cookie: 'peanut-butter' } )}>To the peanut butter!</a>
+      <h3>I'd like to eat a <span style={{color: 'orange'}}>{this.props.cookie}</span> orange.</h3>
+     
+      </div>
+
+    );
+  }
+});
+{/*changing params doesn't reload page
+I can possibly use param changing for updating virtual dom elements
+
+changing the route using flow router via changing components is a spa
+
+*/}
 FlowRouter.route( '/cookies/:cookie', {
   name: 'cookies',
   action( params ) {
@@ -182,7 +203,16 @@ FlowRouter.route( '/cookies', {
 })
   }
 });
-
+{/*
+FlowRouter.route( '/oranges', {
+  name: 'oranges',
+  action() {
+   mount(dataLayout, {
+ content:<Oranges />
+})
+  }
+});
+*/}
 FlowRouter.route( '/cookies', {
   name: 'cookies',
   action() {
