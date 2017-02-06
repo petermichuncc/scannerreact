@@ -64,6 +64,13 @@ myClick() {
   //This triggers
        // alert("Hello World!");
     }
+    getInitialState() {
+       return { showMe : false };
+    }
+    onClick() {
+       this.setState({ showMe : true} );
+    }
+
   renderTasks() {
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
@@ -82,12 +89,27 @@ myClick() {
       );
     });
   }
-
+  /*<span>
+          <h2>{ `Welcome Back ${ this.props.name }` }</h2>
+          <p>You can visit settings to reset your password</p>
+        </span>*/
+        //Here I need to show an input terminal
   render() {
-
+ let userMessage;
+    if (this.state.showMe) {
+      userMessage = (
+      
+         <input type="text" class="form-control" id="usr" />
+      )
+    } else {
+      userMessage = (
+       <RaisedButton className="0" id="test" type="submit" label="Start data entry" zDepth={3}  onClick={this.myClick}/>
+      )
+    }
     return (
       <div>
-<RaisedButton className="0" id="test" type="submit" label="Start data entry" zDepth={3}  onClick={this.myClick}/>
+ { userMessage }
+
 
 
 </div>

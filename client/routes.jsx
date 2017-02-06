@@ -223,3 +223,46 @@ FlowRouter.route( '/cookies', {
   }
 });
 
+
+/*
+Start working on the routes here 
+
+*/
+//The main layout is datalayout
+//I need to show a button then change it to an input box 
+
+
+Start=React.createClass({ 
+    getInitialState : function() {
+       return { showMe : false };
+    },
+    onClick : function() {
+       this.setState({ showMe : true} );
+    },
+    render : function() {
+        if(this.state.showMe) { 
+            return (<div> one div </div>);
+        } else { 
+            return (<a onClick={this.onClick}> press me </a>);
+        } 
+    }
+})
+/*
+Decide if I want to show button or component using if else
+or 
+
+
+
+*/
+
+
+
+FlowRouter.route( '/cookies', {
+  name: 'cookies',
+  action() {
+    mount(dataLayout, {
+ content: <Cookies/>
+})
+    
+  }
+});
