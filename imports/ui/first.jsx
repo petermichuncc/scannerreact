@@ -37,12 +37,17 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class First extends Component {
   constructor(props) {
     super(props);
-
+this.state = {isToggleOn: true};
+this.handleClick = this.handleClick.bind(this);
     this.state = {
       hideCompleted: false,
     };
   }
-
+ handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
   handleSubmit(event) {
     event.preventDefault();
 
@@ -94,9 +99,10 @@ myClick() {
           <p>You can visit settings to reset your password</p>
         </span>*/
         //Here I need to show an input terminal
-  render() {
- let userMessage;
-    if (this.state.showMe) {
+
+        /*
+        let userMessage;
+ if (this.state.showMe) {
       userMessage = (
       
          <input type="text" class="form-control" id="usr" />
@@ -106,9 +112,26 @@ myClick() {
        <RaisedButton className="0" id="test" type="submit" label="Start data entry" zDepth={3}  onClick={this.myClick}/>
       )
     }
+
+ { userMessage }
+        */
+
+/*
+Handling event example 
+
+    <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+
+
+*/
+
+  render() {
+ 
+   
     return (
       <div>
- { userMessage }
+
 
 
 
