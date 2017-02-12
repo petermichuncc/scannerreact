@@ -1,4 +1,8 @@
+{/*
+Start working on this and making this have functional if statements that 
+grab user input based on the state of the app
 
+*/}
 
 {/*
 
