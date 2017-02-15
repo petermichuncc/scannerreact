@@ -39,18 +39,28 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //Work on this page
 // App component - represents the whole app
 class First extends Component {
+   
+
+
   constructor(props) {
     super(props);
-this.state = {isToggleOn: true};
-this.handleClick = this.handleClick.bind(this);
-    this.state = {
-      hideCompleted: false,
-    };
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+   
+    this.state = {isLoggedIn: false};
+
   }
- handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
+ 
+
+  handleLoginClick() {
+    //Here I can change the state based on a click
+    if (this.state.isLoggedIn==false)
+      {
+    this.setState({isLoggedIn: true});
+      }
+    else
+      {
+        this.setState({isLoggedIn: false});
+      }
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -97,52 +107,65 @@ myClick() {
         />
       );
     });
-  }
-  /*<span>
-          <h2>{ `Welcome Back ${ this.props.name }` }</h2>
-          <p>You can visit settings to reset your password</p>
-        </span>*/
-        //Here I need to show an input terminal
-
-        /*
-        let userMessage;
- if (this.state.showMe) {
-      userMessage = (
-      
-         <input type="text" class="form-control" id="usr" />
-      )
-    } else {
-      userMessage = (
-       <RaisedButton className="0" id="test" type="submit" label="Start data entry" zDepth={3}  onClick={this.myClick}/>
-      )
-    }
-
- { userMessage }
-        */
-
-/*
-Handling event example 
-
-    <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
+  } 
 
 
-*/
 
-  render() {
  
+ render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    
+    let button = null;
+
+
    
+      button = <LoginButton onClick={this.handleLoginClick} />;
+ 
     return (
       <div>
-
-
-
-
-</div>
-
+        <Greeting isLoggedIn={isLoggedIn} />
+        {button}
+      </div>
     );
   }
+
+  
+
+
+
+
+
+
+
+ 
+}
+
+
+function UserGreeting(props) {
+  return <h1>Welcome back!</h1>;
+}
+
+function GuestGreeting(props) {
+  return <h1>Please sign up.</h1>;
+}
+
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  }
+  else if(!isLoggedIn)
+    {
+  return <GuestGreeting />;
+      }
+}
+
+function LoginButton(props) {
+  return (
+    <button onClick={props.onClick}>
+   Test
+    </button>
+  );
 }
 
 First.propTypes = {
