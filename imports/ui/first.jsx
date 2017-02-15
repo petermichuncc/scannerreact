@@ -46,20 +46,20 @@ class First extends Component {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
    
-    this.state = {isLoggedIn: false};
+    this.state = {isLoggedIn: 0};
 
   }
  
 
   handleLoginClick() {
     //Here I can change the state based on a click
-    if (this.state.isLoggedIn==false)
+    if (this.state.isLoggedIn==0)
       {
-    this.setState({isLoggedIn: true});
+    this.setState({isLoggedIn: 1});
       }
-    else
+    else if (this.state.isLoggedIn==1)
       {
-        this.setState({isLoggedIn: false});
+        this.setState({isLoggedIn: 2});
       }
   }
   handleSubmit(event) {
@@ -151,10 +151,10 @@ function GuestGreeting(props) {
 
 function Greeting(props) {
   const isLoggedIn = props.isLoggedIn;
-  if (isLoggedIn) {
+  if (isLoggedIn==0) {
     return <UserGreeting />;
   }
-  else if(!isLoggedIn)
+  else if(isLoggedIn==1)
     {
   return <GuestGreeting />;
       }
