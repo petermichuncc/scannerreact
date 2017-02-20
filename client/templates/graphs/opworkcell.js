@@ -147,26 +147,26 @@ if (0==0)
                 }
             },
             stackLabels: {
-                enabled: false,
+                enabled: true,
                 align: 'center',
                 formatter: function () {
                     return this.y + '%';
                 }
             }
         },
-        
+        tooltip: {
+            pointFormat: '{series.name}: <b>{this.y}</b> %',
+            shared: true
+        },
         plotOptions: {
             column: {
                 depth: 25
             },
          series: {
-
-                
                 dataLabels: {
                     align: 'center',
-                    enabled: false,
+                    enabled: true,
                     rotation: 0,
-                    
                     x: 2,
                     y: -10,
                     formatter: function () {
@@ -180,7 +180,7 @@ if (0==0)
             }
         },
         series: [{
-            color: '#3f51b5',
+            color: '#7c4dff',
             data: datatest
         }]
 

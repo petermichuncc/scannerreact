@@ -3,14 +3,14 @@
   Template.datasearch.rendered = function () {
 
 
-Meteor.subscribe('dataentries');
+
 
 }
 
 
 Template.datasearch.helpers({
     dataentries: function(){
-      Meteor.subscribe('dataentries');
+     
       console.log("count dataentries "+ Dataentries.find().count())
      //create a meteor method that returns Dataentries.find() 
      
@@ -19,8 +19,12 @@ Template.datasearch.helpers({
      //
      //Session.set("name", "Yolanda McDougald" )
       var start=moment().format("YYYY-MM-DD 05:00:00.000")
-    var name="yolanda"
-      return Dataentries.find({ name: {$regex: Session.get("name"), $options: 'i'} })
+   //get this from the server side
+   //ReactiveMethod.call('dataHistory',start)
+   var data=ReactiveMethod.call('dataSearch',Session.get("name"))
+   //console.log("this is the data "+ data)
+   return data
+    
 
     }      
                                                              

@@ -49,6 +49,25 @@
 
 
 Meteor.methods({
+   datasInsert: function(name,date,status,department,workcenter,shift,planned,actual,productivity) {
+  try{
+    Dataentries.insert({
+    name: name,
+     date: date,
+     employeestatus: status,
+     department: department,
+     workcenter: workcenter,
+     shift:shift,
+     planned:planned,
+     actual:actual,
+     productivity: productivity,
+     timestamp: moment().format("YYYY-MM-DD HH:mm:ss.SSS")
+    });
+}catch(err)
+{
+  
+}
+  },
   scansInsert: function(initials,partnumber,record,kanban,bag,box) {
   
      var post = {
@@ -66,22 +85,7 @@ Meteor.methods({
     Scans.insert(post);
 
   },
-  datasInsert: function(name,date,status,department,workcenter,shift,planned,actual,productivity) {
-  
-    Dataentries.insert({
-    name: name,
-     date: date,
-     employeestatus: status,
-     department: department,
-     workcenter: workcenter,
-     shift:shift,
-     planned:planned,
-     actual:actual,
-     productivity: productivity,
-     timestamp: moment().format("YYYY-MM-DD HH:mm:ss.SSS")
-    });
 
-  },
   part: function(upc) {
     try{
  var newString=upc
@@ -634,7 +638,7 @@ var color=null
  console.log("This is type of itemid and partnumber "+typeof itemid+" "+typeof partnumber)
  console.log("This is itemid and partnumber "+itemid+" "+partnumber)
 
- Kanbans.find({partnumber:partnumber,itemid:itemid}).map(function(doc) {
+ Kanbans.find({partnumber:partnumber,itemid:itemid}, { itemid : 1}).map(function(doc) {
          
      if(typeof doc.itemid=="string"||typeof doc.itemid=="number")
      {
@@ -784,7 +788,7 @@ return text
        */
       
 
-   Kanbans.find({partnumber:upc,itemid: { $regex: /^8/i }}).map(function(doc) {
+   Kanbans.find({partnumber:upc,itemid: { $regex: /^8/i }}, { itemid : 1, desc: 1 }).map(function(doc) {
        console.log("test c typeof "+ typeof doc.itemid)
      if(typeof doc.itemid=="string"||typeof doc.itemid=="number")
      {
@@ -792,7 +796,7 @@ return text
        count=count+1
      }
   });
- Kanbans.find({partnumber:upc,itemid: { $regex: /^9/i }}).map(function(doc) {
+ Kanbans.find({partnumber:upc,itemid: { $regex: /^9/i }}, { itemid : 1, desc: 1 }).map(function(doc) {
      console.log("test d typeof "+ typeof doc.itemid)
      if(typeof doc.itemid=="string"||typeof doc.itemid=="number")
      {
@@ -862,7 +866,7 @@ return text
             
       */
 
-   Kanbans.find({partnumber:upc,itemid: { $in:[ /^8/i, /^9/i ]}}).map(function(doc) {
+   Kanbans.find({partnumber:upc,itemid: { $in:[ /^8/i, /^9/i ]}}, { itemid : 1 }).map(function(doc) {
        console.log("test c typeof for kanbanItems "+ typeof doc.itemid)
      if(typeof doc.itemid=="string"||typeof doc.itemid=="number")
      {
@@ -921,11 +925,11 @@ of a kanban from the kanban database
 */
 
 
-
+upc=upcscan
 if (overrode==true)
 {
 
-Kanbans.find({partnumber:scanned,itemid: { $regex: /^8/i }}).map(function(doc) {
+Kanbans.find({partnumber:scanned,itemid: { $regex: /^8/i }}, { itemid : 1 }).map(function(doc) {
        console.log("kanban starting with 8 "+ typeof doc.itemid)
      if(typeof doc.itemid=="string"||typeof doc.itemid=="number")
      {
@@ -934,7 +938,7 @@ Kanbans.find({partnumber:scanned,itemid: { $regex: /^8/i }}).map(function(doc) {
         console.log("this is the upc " + upc)
      }
   });
- Kanbans.find({partnumber:scanned,itemid: { $regex: /^9/i }}).map(function(doc) {
+ Kanbans.find({partnumber:scanned,itemid: { $regex: /^9/i }}, { itemid : 1 }).map(function(doc) {
      console.log("kanban starting with 9 "+ typeof doc.itemid)
      if(typeof doc.itemid=="string"||typeof doc.itemid=="number")
      {
@@ -946,10 +950,7 @@ upc=doc.itemid
 
 
 }
-else if (overrode==false)
-{
-  var upc=upcscan
-}
+
 
 
 
@@ -1058,14 +1059,33 @@ So I can send a upc of the kanban, a boolean, and also the scanned partnumber
 
 
 
-  },      
- datacount: function () {
+  },
+  dataentriesOperators: function()
+  {
+
+var distinctEntries = _.uniq(Dataentries.find({}, {
+    sort: {name: 1}, fields: {name: true}
+}).fetch().map(function(x) {
+    return x.name;
+}), true);
+console.log("type of distinctentries "+ typeof distinctEntries)
+return distinctEntries
+  },  
+    dataentriesWorkcenters: function(name)
+  {
+ var distinctEntries = _.uniq(Dataentries.find({name:name}, {sort: {workcenter:1}, fields: {workcenter:true}}).fetch().map(function(x) {
+ return x.workcenter;
+ }), true);
+ return distinctEntries;
+  },     
+ dailydatacount: function () {
        //So this function will take in an ekanban upc or item id
        //It will then find the suffix of the item id and then find the associated
        //color from the colors collection.    
       try{
 //{timestamp: {$gte: timestamp}
-        var start=moment().format("YYYY-MM-DD 05:00:00.000")
+        var start=moment().format("YYYY-MM-DD 04:00:00.000")
+        console.log("this is the date in daily count"+ start)
        var count=Dataentries.find({timestamp: {$gte: start}}).count()
        console.log("this is the count of data entries today " + count)
       
@@ -1078,7 +1098,29 @@ So I can send a upc of the kanban, a boolean, and also the scanned partnumber
 
 
         },
+ weeklydatacount: function () {
+       //So this function will take in an ekanban upc or item id
+       //It will then find the suffix of the item id and then find the associated
+       //color from the colors collection.    
+      try{
+//{timestamp: {$gte: timestamp}
+//I need to get since the start of the week
+var firstDay = moment().startOf('week').format('dddd') === 'Sunday' ?     
+moment().startOf('week').add('d',1).format('YYYY-MM-DD 01:00:00.000') : 
+moment().startOf('week').format('YYYY-MM-DD 01:00:00.000');
+        var start=moment().format("YYYY-MM-DD 02:00:00.000")
+       var count=Dataentries.find({timestamp: {$gte: firstDay}}).count()
+       console.log("this is the count of weekly entries today " + count)
+      
+      return count
 
+}catch(err)
+{
+  console.log("this is the error " + err)
+}
+
+
+        },
                          
  averageworkcenter: function (workcenter,start,end) {
        //So this function will take in an ekanban upc or item id
@@ -1115,15 +1157,15 @@ So I can send a upc of the kanban, a boolean, and also the scanned partnumber
        
       var total = 0;
 
-Dataentries.find({workcenter: { $regex: workcenter },shift:"shift 1",date: {$gte: start,$lte:end}}).map(function(doc) {
+Dataentries.find({workcenter: { $regex: workcenter },shift:"shift 1",date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
   shift1count=shift1count+1
   totalshift1 += doc.productivity;
 });
-Dataentries.find({workcenter: { $regex: workcenter },shift:"shift 2",date: {$gte: start,$lte:end}}).map(function(doc) {
+Dataentries.find({workcenter: { $regex: workcenter },shift:"shift 2",date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
   shift2count=shift2count+1
   totalshift2 += doc.productivity;
 });
-Dataentries.find({workcenter: { $regex: workcenter },shift:"shift 3",date: {$gte: start,$lte:end}}).map(function(doc) {
+Dataentries.find({workcenter: { $regex: workcenter },shift:"shift 3",date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
   shift3count=shift3count+1
   totalshift3 += doc.productivity;
 });
@@ -1229,7 +1271,7 @@ console.log("this is the start "+ start)
 console.log("this is the end "+ end)
 //console.log("this is the count "+ Dataentries.find({workcenter: { $regex: test },date: {$gte: start,$lte:end}}).count())
  
- Dataentries.find({workcenter: { $regex: test },date: {$gte: start,$lte:end}}).map(function(doc) {
+ Dataentries.find({workcenter: { $regex: test },date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
 
 //console.log("inside the data entries")
 //console.log("this is the workcenter "+ test)
@@ -1418,7 +1460,7 @@ I need to find only the workcenters that this user has data for
    
              var count=0
         console.log("this is the count " + count+ " this is the workcenter " + distinctEntries[i])
-    Dataentries.find({workcenter: distinctEntries[i],name:operator,date: {$gte: start,$lte:end}}).map(function(doc) {
+    Dataentries.find({workcenter: distinctEntries[i],name:operator,date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
   total += doc.productivity;
   count+=1
 
@@ -1486,7 +1528,7 @@ var count1=0
 
    end=moment(end).format("YYYY-MM-DD")
            
-    Dataentries.find({workcenter: { $regex: workcenter },name:operator,date: {$gte: start,$lte:end}}).map(function(doc) {
+    Dataentries.find({workcenter: { $regex: workcenter },name:operator,date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
       count1+=1
   total += doc.productivity;
 });
@@ -1518,7 +1560,7 @@ var count1=0
   */
    var count2=0
 
-    Dataentries.find({workcenter: { $regex: workcenter }, employeestatus: "permanent",date: {$gte: start,$lte:end}}).map(function(doc) {
+    Dataentries.find({workcenter: { $regex: workcenter }, employeestatus: "permanent",date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
    count2+=1
   total += doc.productivity;
 });
@@ -1582,7 +1624,7 @@ averageopworkcenter: function (operator,start,end) {
   //  var count=Dataentries.find({name: { $regex: operator }}).count()
     console.log("this is the operator " + operator)
    // console.log("this is the count "+ count)
-    Dataentries.find({name: { $regex: operator },date: {$gte: start,$lte:end}}).map(function(doc) {
+    Dataentries.find({name: { $regex: operator },date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
   total += doc.productivity;
   count+=1;
 });
@@ -1609,7 +1651,7 @@ averageopworkcenter: function (operator,start,end) {
 var count2=Dataentries.find({employeestatus: "permanent"}).count()
     console.log("this is the count permanent "+ count2)
     
-      Dataentries.find({employeestatus: "permanent"}).map(function(doc) {
+      Dataentries.find({employeestatus: "permanent"}, { productivity : 1, name: 1 }).map(function(doc) {
        
         if(isNaN(doc.productivity)==false && isNaN(total2)==false)
         {
@@ -1674,11 +1716,12 @@ average: function (department, start, end) {
       var total = 0;
 //add timestamp gte and lte
 //
-Dataentries.find({employeestatus:"temp", department:department, date: {$gte: start,$lte:end}}).map(function(doc) {
+
+Dataentries.find({employeestatus:"temp", department:department, date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
    tempcount=tempcount+1
   totaltemp += doc.productivity;
 });
-Dataentries.find({employeestatus:"permanent", department:department, date: {$gte: start,$lte:end}}).map(function(doc) {
+Dataentries.find({employeestatus:"permanent", department:department, date: {$gte: start,$lte:end}}, { productivity : 1 }).map(function(doc) {
  permanentcount=permanentcount+1
   totalpermanent += doc.productivity;
 });
@@ -1765,10 +1808,64 @@ return avgarray
             //console.log(_time);
             return _time;
         },
-     dataTable: function () {
+     dataTable: function (count,removed) {
            console.log("this is the type of data server " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}))
-        return Dataentries.find({},{sort: {timestamp: -1}, limit: 5})
+       console.log("table array " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}).fetch())
+       return Dataentries.find({},{sort: {timestamp: -1}, limit: 5}).fetch()
 
+
+        },
+        dataHistory: function (start) {
+           //console.log("this is the type of data server " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}))
+      // console.log("table array " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}).fetch())
+       return Dataentries.find({timestamp: {$gte: start}}).fetch()
+
+
+        },
+        dataSearch: function (name) {
+
+           //console.log("this is the type of data server " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}))
+      // console.log("table array " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}).fetch())
+       return  Dataentries.find({ name: {$regex: name, $options: 'i'} }).fetch()
+
+
+        },
+        scanOutput: function (name,start,end) {
+          
+           //console.log("this is the type of data server " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}))
+      // console.log("table array " + typeof Dataentries.find({},{sort: {timestamp: -1}, limit: 5}).fetch())
+       if (name==null)
+    {
+console.log("the session is null ")
+
+  if (Scans.find({timestamp: {$gte: start, $lt:end}}).count()>0)
+  {
+    //test out returning a toast
+    return Scans.find({timestamp: {$gte: start, $lt:end}}).fetch()
+  }
+
+    }
+else
+{
+
+  if (Scans.find({ partnumber: {$regex: name, $options: 'i'},timestamp: {$gte: start, $lt:end} }).count()>0)
+      {
+
+      //test out returning a toast
+      return Scans.find({ partnumber: {$regex: name, $options: 'i'},timestamp: {$gte: start, $lt:end} }).fetch()
+    }
+
+    } 
+
+
+
+
+
+        },
+        operatorSearch: function () {
+          console.log("this is the result on server " + typeof Dataentries.distinct('name'))
+ return Dataentries.distinct('name');
+        
 
         },
         partTable: function () {

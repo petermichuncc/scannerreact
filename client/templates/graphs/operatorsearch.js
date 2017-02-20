@@ -1,9 +1,9 @@
 StandardLegends = new Mongo.Collection(null);
 
-  Template.opsearch.rendered = function () {
+  Template.opsearch.created = function () {
 
 
-Meteor.subscribe('dataentries');
+//Meteor.subscribe('dataentriesnames', Session.get("startgraph"),Session.get("endgraph"));
 
 }
 

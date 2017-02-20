@@ -10,7 +10,7 @@
   Template.outputnew.rendered = function () {
 
 
-Meteor.subscribe('scans');
+//Meteor.subscribe('scans');
 
 }
 
@@ -33,30 +33,12 @@ Template.outputnew.helpers({
     end=moment(end).format("YYYY-MM-DD")
     console.log("this is the start "+ start+ " this is the end " + end)
     var name=Session.get("nameoutput")
-   
+  
+   var data=ReactiveMethod.call('scanOutput',name,start,end)
+   //console.log("this is the data "+ data)
+   return data
 
-    if (name==null)
-    {
-console.log("the session is null ")
-
-  if (Scans.find({timestamp: {$gte: start, $lt:end}}).count()>0)
-  {
-    //test out returning a toast
-    return Scans.find({timestamp: {$gte: start, $lt:end}})
-  }
-
-    }
-else
-{
-
-  if (Scans.find({ partnumber: {$regex: name, $options: 'i'},timestamp: {$gte: start, $lt:end} }).count()>0)
-      {
-
-      //test out returning a toast
-      return Scans.find({ partnumber: {$regex: name, $options: 'i'},timestamp: {$gte: start, $lt:end} })
-    }
-
-    }      
+        
 },
 settings: function () {
         return {

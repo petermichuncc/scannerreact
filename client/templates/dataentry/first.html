@@ -1,7 +1,11 @@
 
 
 <template name="first">
-  
+  <style>
+ html {
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+  }
+</style>
 <body class="">
  {{show}}
  {{datacount}}
@@ -18,7 +22,7 @@
      {{#if $.Session.equals 'count' 0}}
    
   
- <button class="btn btn-default 0 z-depth-3 whitetext" id="test" type="submit">Start data entry</button>
+ <button class="btn btn-default waves-effect waves-light 0 z-depth-3 whitetext" id="test" type="submit">Start data entry</button>
  
  
 
@@ -94,15 +98,16 @@ items -->
 {{/if}}
  {{/if}}
   {{/if}}
-<button class="btn btn-default 5 z-depth-3 whitetext" type="submit">Previous</button>
- <button class="btn btn-default 2 z-depth-3 whitetext" id="test" type="submit">Next</button>   
+<button class="btn btn-default waves-effect waves-light 5 z-depth-3 whitetext" type="submit">Previous</button>
+ <button class="btn btn-default waves-effect waves-light 2 z-depth-3 whitetext" id="test" type="submit">Next</button>   
      {{/if}}
      {{#if $.Session.equals 'count' 9}}
  {{datacount}}
- <button class="btn btn-default 10 z-depth-3 whitetext" type="submit">Data Entry History</button><br>
- <button class="btn btn-default 11 z-depth-3 whitetext" type="submit">Data Entry Search</button><br>    
-<button class="btn btn-default 3 z-depth-3 whitetext" type="submit">Finished</button>  <br>
-<button class="btn btn-default 4 z-depth-3 whitetext" id="test" type="submit">Next entry</button> <br> 
+ <button class="btn btn-default waves-effect waves-light 10 z-depth-3 whitetext" type="submit">Data Entry History</button><br>
+ <button class="btn btn-default waves-effect waves-light 11 z-depth-3 whitetext" type="submit">Data Entry Search</button><br>
+ <button class="btn btn-default waves-effect waves-light weekly z-depth-3 whitetext" type="submit">Entries This Week</button>  <br>    
+<button class="btn btn-default waves-effect waves-light daily z-depth-3 whitetext" type="submit">Entries Today</button>  <br>
+<button class="btn btn-default waves-effect waves-light start z-depth-3 whitetext" id="test" type="submit">Next entry</button> <br> 
      {{/if}}
  {{#if showtext}}
  {{#if $.Session.equals 'count' 1}}
@@ -120,7 +125,7 @@ items -->
 
 $('#name').focus();
  </script>
-         <button class="btn btn-default 1 z-depth-3 whitetext" id="test" value="Validate Form" type="submit">Next</button>
+         <button class="btn btn-default waves-effect waves-light 1 z-depth-3 whitetext" id="test" value="Validate Form" type="submit">Next</button>
       {{else}}
       {{#if $.Session.equals 'count' 2}}
 
@@ -145,24 +150,25 @@ $('#name').focus();
   });
 $('#date').focus();
  </script>
- <button class="btn btn-default 5 z-depth-3 whitetext" type="submit">Previous</button> 
-  <button class="btn btn-default 1 z-depth-3 whitetext" id="test" type="submit">Next</button>
+ <button class="btn btn-default waves-effect waves-light 5 z-depth-3 whitetext" type="submit">Previous</button> 
+  <button class="btn btn-default waves-effect waves-light 1 z-depth-3 whitetext" id="test" type="submit">Next</button>
    {{else}}
       {{#if $.Session.equals 'textgo' 1}}
 <!--Here show the input asking for planned -->
-<div class="center">
+  <div class="mytext ">
             
-            <div class="input-field col center mytext">
-                <input id="name" type="text" class="validate mytext " autofocus autocomplete="off" required/>
-                <label for="" class="center"> <span class="fontbigger"> {{text}} </span> </label>
+            <div class="input-field col ">
+                <input id="name" type="text" class="validate required" autofocus autocomplete="off" required/>
+                <label for="" class="fontbigger"><span class="fontbigger"> {{text}} </span></label>
             </div>
         </div>
+
 <script>
 $('#name').focus();
 
 </script>
-<button class="btn btn-default 5 z-depth-3 whitetext" type="submit">Previous</button>
- <button class="btn btn-default 1 z-depth-3 whitetext"  id="test" type="submit">Next</button>
+<button class="btn btn-default waves-effect waves-light 5 z-depth-3 whitetext" type="submit">Previous</button>
+ <button class="btn btn-default waves-effect waves-light 1 z-depth-3 whitetext"  id="test" type="submit">Next</button>
       {{/if}}
     {{/if}}  
   {{/if}}

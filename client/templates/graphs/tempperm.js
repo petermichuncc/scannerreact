@@ -155,7 +155,7 @@ if (typeof permanent=="number")
             }
         },
         series: [{
-            color: '#3f51b5',
+            color: '#7c4dff',
             data: datatest
         }]
 

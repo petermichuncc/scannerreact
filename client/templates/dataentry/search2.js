@@ -1,6 +1,6 @@
 StandardLegends = new Mongo.Collection(null);
 
-   Template.search2.rendered = function () {
+   Template.search2.created = function () {
  Meteor.subscribe('datacenters');
 
 }
@@ -25,7 +25,12 @@ Template.search2.helpers({
   },
   legends: function() {
 
-    return Datacenters.find();
+    //return Datacenters.find();
+  },
+  test: function()
+  {
+    
+    
   }
 });
 

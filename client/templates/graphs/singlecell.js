@@ -113,7 +113,7 @@ if (typeof shift1=="number"||typeof shift2=="number"||typeof shift3=="number")
             }
         },
         series: [{
-            color: '#3f51b5',
+            color: '#7c4dff',
             data: datatest
         }]
 

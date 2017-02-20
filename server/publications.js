@@ -1,46 +1,34 @@
 //File that publishes all the databases used
 
 
-Meteor.publish('scans', function() {
-  return Scans.find();
-});
-
 //ReactiveTable.publish("scans", Scans);
 
+
+
+
+/*
+Meteor.publish('dataentriesOperators', function() {
+return Dataentries.find({}, {fields: {name: 1}});
+
+
+});
+*/
+/*
+Meteor.publish('dataentriesnames', function(start,end) {
+  return Dataentries.find({timestamp: {$gte: start, $lt:end}}, {
+    sort: {name: 1}, fields: {name: true}
+});
+  });
+  */
+/*
+Meteor.publish('dataentriesTable', function() {
+  return Dataentries.find({},{sort: {timestamp: -1}, limit: 5})
+});
+
+
+*/
 Meteor.publish('datacenters', function() {
+  console.log("Here is a datacenter " + Datacenters.find())
   return Datacenters.find();
 });
 
-Meteor.publish('dataentries', function() {
-  return Dataentries.find();
-});
-/*
-Meteor.publish('scans-table', function (start, end, name) {
-
-  if (name==null)
-    {
-	console.log("the session is null ")
-
-  if (Scans.find({timestamp: {$gte: start, $lt:end}}).count()>0)
-  {
-    //test out returning a toast
-    return Scans.find({timestamp: {$gte: start, $lt:end}})
-  }
-
-    }
-else
-{
-
-  if (Scans.find({ partnumber: {$regex: name, $options: 'i'},timestamp: {$gte: start, $lt:end} }).count()>0)
-      {
-
-      //test out returning a toast
-      return Scans.find({ partnumber: {$regex: name, $options: 'i'},timestamp: {$gte: start, $lt:end} })
-    }
-
-    }  
-});
-*/
-Meteor.publish('kanbanstest', function() {
-  return Dataentries.find();
-});

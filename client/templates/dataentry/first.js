@@ -12,58 +12,101 @@ $('#date').focus();
   Session.set("planned", null)
   Session.set("actual", null)
   Session.set("productivity", null)
-  Session.set("datacount", null)
+  Session.set("dailydatacount", null)
+  Session.set("weeklydatacount", null)
+
 function myFunction() {
-    var x = Math.floor((Math.random() * 11) + 1);
+    var x = Math.floor((Math.random() * 21) + 1);
 
 if (x==1)
 {
- return 'Nice work'
+ return 'Nice work';
 }
 else if (x==2)
 {
-   return 'Good job'
+   return 'Good job';
 }
 else if (x==3)
 {
-  return'Congratz'
+  return'Congratz';
 }
 else if (x==4)
 {
-  return 'Great'
+  return 'Fantastic';
 }
 else if (x==5)
 {
-  return 'Keep it up'
+  return 'Keep it up';
 }
 else if (x==6)
 {
-  return 'Good going'
+  return 'Good going';
 }
 else if (x==7)
 {
-  return 'Good work'
+  return 'Good work';
 }
 else if (x==8)
 {
-  return 'Bravo'
+  return 'Bravo';
 }
 else if (x==9)
 {
-  return 'Compliments'
+  return 'Compliments';
 }
 else if (x==10)
 {
-  return 'Well done'
+  return 'Well done';
 }
 else if (x==11)
 {
-  return 'Perfect'
+  return 'Perfect';
 }
+else if (x==12)
+{
+  return 'Marvelous';
+}
+else if (x==13)
+{
+  return 'Excellent';
+}
+else if (x==14)
+{
+  return 'Right on';
+}
+else if (x==15)
+{
+  return 'Nice going';
+}
+else if (x==16)
+{
+  return 'Kudos to you';
+}
+else if (x==17)
+{
+  return 'Good effort';
+}
+else if (x==18)
+{
+  return "That's the way";
+}
+else if (x==19)
+{
+  return "Way to go";
+}
+else if (x==20)
+{
+  return "Nice one";
+}
+else if (x==21)
+{
+  return "Good stuff";
+}
+
 }
 
 function myFunctionColor() {
-    var x = Math.floor((Math.random() * 5) + 1);
+    var x = Math.floor((Math.random() * 7) + 1);
 
 if (x==1)
 {
@@ -85,7 +128,14 @@ else if (x==5)
 {
   return 'deep-purple darken-4'
 }
-
+else if (x==6)
+{
+  return 'deep-purple accent-3'
+}
+else if (x==7)
+{
+  return 'lime accent-1'
+}
 }
 
 
@@ -97,6 +147,7 @@ else if (x==5)
 var showdd=null
 var showtext=null
 var count=0;
+Session.set("finalPage",false)
 Session.set("count",0)
 Session.set("textgo",false)
 Session.set("name", null)
@@ -125,8 +176,12 @@ Template.registerHelper('showdd',function(input){
 /*$('#initials').on('blur',function(){
    if (this.value.length < 4) $(this).focus();
 });*/
+if (Session.get("removed")==true)
+      {
+        Session.set("removed",false)
+      }
  Meteor.subscribe('datacenters');
-Meteor.subscribe('dataentries');
+//Meteor.subscribe('dataentries');
 $(document).keypress(function(event){
 
     var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -161,6 +216,7 @@ $("#initials").focus();
 //var nowsync=TimeSync.serverTime(null, 300000);
 Template.first.helpers({
     text: function () {
+
       //In this function I will return the text asking for the user to enter specific data
       console.log("this is the session count in text " + Session.get("count"))
       if (Session.get("count")===1)
@@ -254,8 +310,10 @@ else
  datacount: function()
   {
     //I will grab a session variable that has the 
-    var datacount=ReactiveMethod.call('datacount')
-    Session.set("datacount",datacount)
+    var datacount=ReactiveMethod.call('dailydatacount')
+    Session.set("dailydatacount",datacount)
+    var datacount=ReactiveMethod.call('weeklydatacount')
+    Session.set("weeklydatacount",datacount)
    console.log("this is the data count now "+ datacount)
   }
 });
@@ -265,7 +323,53 @@ else
 
  Template.first.events({
     // events go here
+ 'click .userRow':function(e, t){
+      /*  BootstrapModalPrompt.prompt({
+      dialogTemplate: Template.RequestDemoModal
+    });*/
 
+var name=this.name
+var date=this.date
+var employeestatus=this.employeestatus
+var department=this.department
+var workcenter=this.workcenter
+var shift=this.shift
+var planned=this.planned
+var actual=this.actual
+var productivity=this.productivity
+var id=this._id
+console.log("You Select Client Row " + name);
+     console.log("You Select Client Row " + date);
+ console.log("You Select Client Row " + employeestatus);
+ console.log("You Select Client Row " + department);
+console.log("You Select Client Row " + workcenter);
+console.log("You Select Client Row " + shift);
+console.log("You Select Client Row " + planned);
+console.log("You Select Client Row " + actual);
+console.log("You Select Client Row " + productivity);
+console.log("You Select Client Row " + id);
+Session.set("idtest",id)
+//trigger a removal of this database entry when it is clicked
+
+
+
+Meteor.call('alertremoval', name,date,productivity,id)
+
+
+  Session.set("removed",true)
+ 
+
+   
+
+
+
+
+
+//
+        
+      
+    },
+    
 "submit .workcenterSelection": function(event){
  event.defaultPrevented;
  
@@ -285,6 +389,11 @@ Session.set("count",count)
 'click .1': function(event, template){
  //Router.go('one')
 //I need to store the user submitted date into a session variable
+if (Session.get("removed")==true)
+      {
+        Session.set("removed",false)
+      }
+
 
 var value=''
 if (count===1)
@@ -361,7 +470,7 @@ productivity=Number(productivity)
 console.log("this is the productivity converted to number" + productivity )
 Session.set("productivity", productivity)
 Meteor.call('datasInsert',name,date,status,department,workcenter,shift,planned,actual,productivity )
-
+Session.set("finalPage",true)
 var word=myFunction()
 var color=myFunctionColor()
 console.log("this is myFunction "+ word)
@@ -437,25 +546,139 @@ else
 
 
 },
-'click .3': function(event, template){
+'click .daily': function(event, template){
  //Router.go('one')
  var color=myFunctionColor()
  //Say how many entries have been outputted here.
- var datacount=  Session.get("datacount")
+ var datacount=  Session.get("dailydatacount")
+ console.log("this is the datacount  in finished" + datacount)
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 15000, color)
+
+ if (typeof datacount=="number")
+ {
+
+}
+},
+'click .weekly': function(event, template){
+ //Router.go('one')
+ var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+ var datacount=  Session.get("weeklydatacount")
+ console.log("this is the datacount  in finished" + datacount)
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries this week")
+ Materialize.toast(amount, 15000, color)
+
+ if (typeof datacount=="number")
+ {
+
+}
+},
+'click .start': function(event, template){
+ //Router.go('one')
+ //Show how many entries for 25 50 100 150 200 300  
+/*
+ var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+ var datacount=  Session.get("dailydatacount")
  console.log("this is the datacount  in finished" + datacount)
  var datacount=datacount.toString()
 var amount="You entered ".concat(datacount)
 var amount=amount.concat(" entries today")
  Materialize.toast(amount, 8000, color)
- Materialize.toast('Have a good day', 8000, color)
- if (typeof datacount=="number")
- {
-count=0
-Session.set("count",count)
+
+
+*/
+ var datacount=  Session.get("dailydatacount")
+if (datacount==25)
+{
+  var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+//
+
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 20000, color)
+ Materialize.toast('Great start', 20000, color)
 }
-},
-'click .4': function(event, template){
- //Router.go('one')
+else if (datacount==50)
+{
+  var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+
+
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 20000, color)
+ Materialize.toast('Keep it up', 20000, color)
+}
+else if (datacount==100)
+{
+  var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+
+
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 24000, color)
+ Materialize.toast('Nice', 24000, color)
+}
+else if (datacount==200)
+{
+  var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+
+
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 24000, color)
+ Materialize.toast('Fantastic', 24000, color)
+}
+else if (datacount==300)
+{
+  var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+
+
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 24000, color)
+ Materialize.toast('Excellent job', 24000, color)
+}
+else if (datacount==400)
+{
+  var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+
+
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 24000, color)
+ Materialize.toast('Wonderful', 24000, color)
+}
+else if (datacount==500)
+{
+  var color=myFunctionColor()
+ //Say how many entries have been outputted here.
+
+
+ var datacount=datacount.toString()
+var amount="You entered ".concat(datacount)
+var amount=amount.concat(" entries today")
+ Materialize.toast(amount, 35000, color)
+ Materialize.toast('Amazing work', 35000, color)
+}
+
 Session.set("name", null)
   Session.set("date", null)
   Session.set("status", null)
@@ -465,6 +688,7 @@ Session.set("name", null)
   Session.set("planned", null)
   Session.set("actual", null)
   Session.set("productivity", null)
+  Session.set("finalPage",false)
  count=1
 Session.set("count",count)
 

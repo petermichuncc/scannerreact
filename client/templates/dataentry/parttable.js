@@ -3,7 +3,7 @@ Session.set("idtest",null)
 
 
   Template.parttable.rendered = function () {
-  Meteor.subscribe('dataentries');
+  //Meteor.subscribe('dataentries');
 
 }
 

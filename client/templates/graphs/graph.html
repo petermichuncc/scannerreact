@@ -51,9 +51,9 @@
 </div>
 
 
- <button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button> <br>
+ <button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Select</button> <br>
 
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Graph Menu</button> 
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Graph Menu</button> 
         
 {{/if}}
 
@@ -61,7 +61,7 @@
 
 
 
- <button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Graph Menu</button> 
+ <button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Graph Menu</button> 
    {{/if}} 
     {{#if $.Session.equals 'countnew' 1}}
 
@@ -75,7 +75,7 @@
 
 </div>
 
-<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button> 
+<button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Select</button> 
 
 
       {{/if}} 
@@ -85,11 +85,27 @@
  {{#if $.Session.equals 'choice' "operator"}}
   {{#if $.Session.equals 'countnew' 2}}
 <label for="" class=""><span class=""> Please enter an operator's name </span></label><br>
-{{>opsearchtest}}
-<br>
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+<div class="mytext">
+<!--If fire fox then opsearchtest
+If other browsers then opsearch-->
+ <!--{{#if $.Session.equals 'browser' 'chrome'}}
+ 
+ {{>opsearchtest}}
+  {{/if}}
+{{#if $.Session.equals 'browser' 'firefox'}}
+ {{>opsearch}}
+  {{/if}}-->
+   {{>opsearchtest}}
+<!-- Here I need to make a browser detector that chooses to show opsearch of opsearchtest based
+on the browser chosen. -->
+<!--{{>opsearchtest}}-->
+<!--Work on getting opsearchtest working for firefox-->
+<!--{{>workcentersearchtest}}-->
+</div>
 
-<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+
+<button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Select</button>
 
 {{/if}}
  {{#if $.Session.equals 'countnew' 3}}
@@ -105,8 +121,8 @@
     </select>
 
 </div>
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
-<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>  
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button>
+<button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Select</button>  
  
 {{/if}}
 
@@ -127,8 +143,8 @@
 </div>
 
 
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
-<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>  
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button>
+<button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Select</button>  
  
 {{/if}}
 {{#if $.Session.equals 'operatorchoice' "overall"}}
@@ -136,7 +152,7 @@
 
 {{>opaverageworkcell}}
 
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button>
   
 {{/if}}
 {{#if $.Session.equals 'operatorchoice' "all"}}
@@ -144,7 +160,7 @@
 
 {{>allopworkcell}}
 
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button>
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button>
   
 {{/if}}
 
@@ -165,8 +181,8 @@
     </select>
 
 </div>
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
-<button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button>  
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+<button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Select</button>  
 
 {{/if}}  
  {{#if $.Session.equals 'countnew' 3}}
@@ -177,7 +193,7 @@
     {{>search2}}
     
 </div>
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button> 
  
 
   
@@ -201,9 +217,9 @@
     </select>
 
 </div>
- <button class="btn btn-default 2 indigo z-depth-3 whitetext" id="test" type="submit">Select</button> <br>
+ <button class="btn btn-default waves-effect waves-light 2 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Select</button> <br>
 
- <button class="btn btn-default 1 indigo z-depth-3 whitetext" id="test" type="submit">Previous</button> 
+ <button class="btn btn-default waves-effect waves-light 1 deep-purple accent-2 z-depth-3 whitetext" id="test" type="submit">Previous</button> 
   
 
 

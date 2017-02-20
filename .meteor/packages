@@ -47,7 +47,6 @@ raix:handlebar-helpers
 random
 reactive-dict
 remcoder:chronos
-rwatts:autoform-modals-materialize
 sacha:spin
 sebdah:autocompletion
 session
@@ -61,5 +60,5 @@ u2622:persistent-session
 underscore
 yogiben:autoform-modals
 fourseven:scss
-poetic:materialize-scss
 arillo:flow-router-helpers
+poetic:materialize-scss

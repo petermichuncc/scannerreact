@@ -9,6 +9,15 @@ potentially be scanned.
 
    
 */
+
+
+
+/*
+Start working on Husky department
+
+
+
+*/
 Session.set("section","raceway")
  var color ="indigo lighten-1"
 function myFunction() {
@@ -139,6 +148,7 @@ var test=0
 
 
 var run=true
+var complete=false
 var record=0
 var go="green"
 var text=""
@@ -259,6 +269,12 @@ this.state.set('partscan', null);
 this.state.set('partscandesc',null)
 this.state.set('partshould',null)
 this.state.set('partshoulddesc',null)
+  
+
+this.state.set('individualsampletag', false)
+this.state.set('cartonlabeltag', false)
+this.state.set('containerlabeltag', false)
+
 
 
 Session.set("scannedPartnumber",null)
@@ -347,6 +363,7 @@ clearTimeout(typingTimer);
      function doneTyping () {
   //do something
   run=true
+ complete=false
 
    
 
@@ -571,13 +588,14 @@ checks if box label/printed bag was scanned
 
     if (Session.get("scan2").charAt(0)==7||Session.get("scan2").charAt(0)==8)
     {
-      //box label was scanned
-      Template.instance().state.set("bag", false)
+      //bag was scanned
+      Template.instance().state.set("bag", true)
       Session.set("bagtag",Session.get("scan2"))
     }
     else
     {
-      Template.instance().state.set("bag", true)
+      //box was scanned
+      Template.instance().state.set("bag", false)
       Session.set("boxtag",Session.get("scan2"))
     }
     
@@ -641,11 +659,11 @@ if (Template.instance().state.get("kanban")&&run===true && Session.get("counter"
 
  if(result==="red" && run===true)
       {
-       if (Session.get("counter")>=2)
+        if (Session.get("counter")>=1)
     {
-      console.log("setting text false")
+      console.log("setting text false a")
       Template.instance().state.set("kanbangood",true)
-      Template.instance().state.set("text", false)
+      Template.instance().state.set("text", result)
   
     }
  Session.set("descshow",true)
@@ -671,6 +689,9 @@ Materialize.toast(test3, 999000,'blue ch z-depth-2')
     Materialize.toast(test5, 999000,'orange ch z-depth-2')
 //I also need to show a toast with a button that in it
 //
+/*
+if click acknowledge then the toast containing the incorrect color should disappear
+*/
 var colortest=' <button class="btn btn-default 6 #78909c blue z-depth-5 " id="test1" onclick="myFunction()" >Acknowledge</button>'
   var $toastContent = $(colortest);
   Materialize.toast1($toastContent, 999000, 'ch');
@@ -684,6 +705,7 @@ $('#test1').mouseup(function() { this.blur() })
 
   
      run=false
+     complete=true
    }
    else if(result==="green" && run===true)
    {
@@ -691,7 +713,10 @@ $('#test1').mouseup(function() { this.blur() })
     Materialize.toast('Match', 4000,'indigo lighten-1 z-depth-2')
     //count shouldn't go up after the bag and box are scanned and
     //the scanned item was ekanban
-   
+    if (Session.get("counter")>=1)
+    {console.log("setting text true a")
+  Template.instance().state.set("text", result)
+   }
     count= Session.get("counter")
 
     count = count+1
@@ -702,11 +727,9 @@ $('#test1').mouseup(function() { this.blur() })
 
     
       Session.set("counter", count)
-         if (Session.get("counter")>=2)
-    {   console.log("setting text true a")
-  Template.instance().state.set("text", true)
-    }
+        
  run=false
+     complete=true
    
 
    }
@@ -752,10 +775,10 @@ else if (typeof ReactiveMethod.call('compare', scan2,Session.get("scanned"))==="
  if(result==="red" && run===true)
       {
       
-      if (Session.get("counter")>=2)
-    {  console.log("setting text false")
+      if (Session.get("counter")>=1)
+    {  console.log("setting text false b")
   Template.instance().state.set("kanbangood",true)
-      Template.instance().state.set("text", false)
+      Template.instance().state.set("text", result)
     }
  Session.set("descshow",true)
   var test3="The partnumber you scanned was: "
@@ -780,6 +803,9 @@ Materialize.toast(test3, 999000,'blue ch z-depth-2')
     Materialize.toast(test5, 999000,'orange ch z-depth-2')
 //I also need to show a toast with a button that in it
 //
+/*
+if click acknowledge then the toast containing the incorrect color should disappear
+*/
 var colortest=' <button class="btn btn-default 6 #78909c blue z-depth-5 " id="test1" onclick="myFunction()" >Acknowledge</button>'
   var $toastContent = $(colortest);
   Materialize.toast1($toastContent, 999000, 'ch');
@@ -793,6 +819,7 @@ $('#test1').mouseup(function() { this.blur() })
 
   
      run=false
+     complete=true
    }
    else if(result==="green" && run===true)
    {
@@ -800,7 +827,10 @@ $('#test1').mouseup(function() { this.blur() })
     Materialize.toast('Match', 4000,'indigo lighten-1 z-depth-2')
     //count shouldn't go up after the bag and box are scanned and
     //the scanned item was ekanban
-   
+    if (Session.get("counter")>=1)
+    {console.log("setting text true b")
+ Template.instance().state.set("text", result)
+   }
     count= Session.get("counter")
 
     count = count+1
@@ -813,11 +843,9 @@ $('#test1').mouseup(function() { this.blur() })
 
     
       Session.set("counter", count)
-         if (Session.get("counter")>=2)
-    {  console.log("setting text true b")
-  Template.instance().state.set("text", true)
-    }
+        
  run=false
+     complete=true
    
 
    }
@@ -1032,10 +1060,10 @@ console.log("this is the result after kanbancheck " + result + " this is the run
  if(result==="red" && run===true)
       {
     
-     if (Session.get("counter")>=2)
-    {  console.log("setting text false")
+      if (Session.get("counter")>=1)
+    {  console.log("setting text false c")
    Template.instance().state.set("kanbangood",true)
-      Template.instance().state.set("text", false)
+     Template.instance().state.set("text", result)
     }
  Session.set("descshow",true)
   var test3="The partnumber you scanned was: "
@@ -1058,8 +1086,9 @@ Materialize.toast(test3, 999000,'blue ch z-depth-2')
  
   Materialize.toast(test2, 999000,'orange ch z-depth-2')
     Materialize.toast(test5, 999000,'orange ch z-depth-2')
-//I also need to show a toast with a button that in it
-//
+/*
+if click acknowledge then the toast containing the incorrect color should disappear
+*/
 var colortest=' <button class="btn btn-default 6 #78909c blue z-depth-5 " id="test1" onclick="myFunction()" >Acknowledge</button>'
   var $toastContent = $(colortest);
   Materialize.toast1($toastContent, 999000, 'ch');
@@ -1073,6 +1102,7 @@ $('#test1').mouseup(function() { this.blur() })
 
   
      run=false
+     complete=true
    }
    else if(result==="green" && run===true)
    {
@@ -1080,7 +1110,10 @@ $('#test1').mouseup(function() { this.blur() })
     Materialize.toast('Match', 4000,'indigo lighten-1 z-depth-2')
     //count shouldn't go up after the bag and box are scanned and
     //the scanned item was ekanban
-   
+      if (Session.get("counter")>=1)
+    {console.log("setting text true c")
+  Template.instance().state.set("text", result)
+   }
     count= Session.get("counter")
    
     count = count+1
@@ -1091,11 +1124,9 @@ $('#test1').mouseup(function() { this.blur() })
 
     
       Session.set("counter", count)
-         if (Session.get("counter")>=2)
-    {  console.log("setting text true c")
-  Template.instance().state.set("text", true)
-    }
+      
  run=false
+     complete=true
    
 
    }
@@ -1140,10 +1171,10 @@ else if (typeof ReactiveMethod.call('compare', scan2,Session.get("scanned"))==="
 
  if(result==="red" && run===true)
       {
-        if (Session.get("counter")>=2)
-    {  console.log("setting text false")
+         if (Session.get("counter")>=1)
+    {  console.log("setting text false d")
       Template.instance().state.set("kanbangood",true)
-      Template.instance().state.set("text", false)
+    Template.instance().state.set("text", result)
   
     }
  Session.set("descshow",true)
@@ -1167,8 +1198,9 @@ Materialize.toast(test3, 999000,'blue ch z-depth-2')
  
   Materialize.toast(test2, 999000,'orange ch z-depth-2')
     Materialize.toast(test5, 999000,'orange ch z-depth-2')
-//I also need to show a toast with a button that in it
-//
+/*
+if click acknowledge then the toast containing the incorrect color should disappear
+*/
 var colortest=' <button class="btn btn-default 6 #78909c blue z-depth-5 " id="test1" onclick="myFunction()" >Acknowledge</button>'
   var $toastContent = $(colortest);
   Materialize.toast1($toastContent, 999000, 'ch');
@@ -1182,6 +1214,7 @@ $('#test1').mouseup(function() { this.blur() })
 
   
      run=false
+     complete=true
    }
    else if(result==="green" && run===true)
    {
@@ -1189,7 +1222,10 @@ $('#test1').mouseup(function() { this.blur() })
     Materialize.toast('Match', 4000,'indigo lighten-1 z-depth-2')
     //count shouldn't go up after the bag and box are scanned and
     //the scanned item was ekanban
-   
+   if (Session.get("counter")>=1)
+    {console.log("setting text true d")
+  Template.instance().state.set("text", result)
+ }
     count= Session.get("counter")
    
     count = count+1
@@ -1200,12 +1236,415 @@ $('#test1').mouseup(function() { this.blur() })
 
     
       Session.set("counter", count)
-        if (Session.get("counter")>=2)
-    {  console.log("setting text true d")
-  Template.instance().state.set("text", true)
-    }
+      
     
  run=false
+     complete=true
+   
+
+   }
+   
+  if (result==="green")
+  {
+
+     
+    
+    $('#initials').val('');
+   Session.set("color", "green")
+    
+  }
+  else if (result==="red")
+  {
+
+    if (Template.instance().state.get("kanban")===true)
+    {
+     
+
+    }
+    record=record+1
+
+    Session.setPersistent("record", record)
+    //Tell what partnumber should have been
+    
+    
+    $('#initials').val('');
+  Session.set("color", "red")
+   
+    
+  }
+ 
+}
+else
+{
+  $('#initials').val('');
+}
+
+
+  },
+   good2: function()
+   {
+    //basically this will return a boolean for whether the background should turn green or not and go to the next page
+    //put this comparison on the server side
+    //
+    /*
+      This function is going through and finding out if the scanned printed bag/box label
+      or kanban was good or not.  If it was incorrect it lets the user know what the scanned
+      item should have been. 
+
+    */
+/*
+  This is a function that checks if the scanned pieces in the husky department are good
+
+*/
+    console.log("inside good1 ")
+Template.instance().state.set('partscan', null);
+  
+    Template.instance().state.set('partshould',null)
+    Template.instance().state.set('partshoulddesc',null)
+ Session.set("kanbantag", false)
+
+  console.log("This is the scan2 in good " + Session.get("scan2"))
+ console.log("This is the rawmaterial check " +ReactiveMethod.call('rawmaterial', Session.get("scan2")) )
+console.log("Is array "+Array.isArray( ReactiveMethod.call('rawmaterial', Session.get("scan2")))+"run is true"+run+"counter gte 2" + Session.get("counter"))
+   if (typeof ReactiveMethod.call('total', Session.get("scan2"))==="object" &&run===true )
+ {
+  console.log("a box Individual sample, carton label, or container label was scanned")
+  /*
+checks if box label/printed bag was scanned
+  */
+
+
+      if (Session.get("scan2").charAt(0)==7)
+    {
+      
+      //Label scanned
+
+      Template.instance().state.set("individualsampletag", true)
+      Session.set("individualsampletag",Session.get("scan2"))
+    }
+    else if (Session.get("scan2").charAt(0)==5)
+    {
+      //blister card scanned
+        console.log("carton scanned")
+      Template.instance().state.set("cartonlabeltag", true)
+      Session.set("cartonlabeltag",Session.get("scan2"))
+    }
+    else if (Session.get("scan2").charAt(0)==3)
+    {
+      //blister card scanned
+      console.log("container scanned")
+      Template.instance().state.set("containerlabeltag", true)
+      Session.set("containerlabeltag",Session.get("scan2"))
+    }
+
+  
+     var scan2=ReactiveMethod.call('total', Session.get("scan2"))
+     var scan2desc=scan2.desc
+     scan2=scan2.partnumber
+  }
+  else if (Array.isArray( ReactiveMethod.call('rawmaterial', Session.get("scan2")))&&run===true &&  Session.get("counter")>=2)
+  {
+     /*
+      checks if kanban was scanned
+  */
+console.log("grabbing the scan2itemid")
+  var contents=ReactiveMethod.call('rawmaterial', Session.get("scan2"))
+    Template.instance().state.set("kanban", true)
+     //Template.instance().state.set("kanbangood", true)
+     /*
+          This goes through kanbans db and finds the itemid, desc, and part number 
+     */
+     var scan2itemid=contents[0]
+    
+     var scan2desc=contents[1]
+      var scan2=contents[2]
+     /*
+        Need a description too.
+     */
+ /*
+  scan2 is the item id,
+  Session.get("scanned") is the partnumber
+
+ */
+ 
+  }
+/*
+
+I will have two different if statements.
+One is for the raw material the other for printed bags/box labels 
+
+*/
+
+
+
+
+
+
+//This function is comparing the job order partnumber to the partnumber of the scanned item
+// A more efficient thing to do would be to just check if the scanned item
+//partnumber is within the job order?
+/*
+This logic is comparing the partnumber of the job order to that of the printed bag,box label, or kanban
+
+*/
+
+/*
+This first if statement runs through if there is a kanban ticket scanned  
+
+*/
+if (Template.instance().state.get("kanban")&&run===true && Session.get("counter")>=3)
+{
+
+   //var result=ReactiveMethod.call('compareKanban', scan2itemid,Session.get("scanned"))
+     //Session.set("result",result)
+    /*
+      Instead of using a comparekanban fxn,  run a for loop that checks if the scanid
+      is matched with one of the kanbans in the kanbanarray
+
+
+    */
+
+/*
+This is holding descriptions of the kanban
+I need the actually items
+
+
+*/
+console.log("checking kanbanPieces")
+   var kanbanPieces =Session.get("itemContents")
+console.log('this is kanbanPieces slot 0 ' + kanbanPieces[0])
+   
+
+ if (Array.isArray(kanbanPieces) && scan2itemid!=undefined)
+ {    
+  
+
+      var count=kanbanPieces[kanbanPieces.length-1]
+      
+       //Contents is holding all of the kanbans for this order
+      console.log("this is the count "+ count)
+      for(var i = 0; i < count; i++){
+              //In this for loop I need to check if  the scan2itemid is equal to an item in the kanbanPieces array  
+              //check if the scanned item == kanbanPieces[i]     
+                console.log("this is kanbanPieces in good1 " +kanbanPieces[i])
+                console.log("this is scan2itemid " +scan2itemid)
+                if (scan2itemid==kanbanPieces[i])
+                    {
+                      console.log("kanban green")
+                      result="green"
+                      break;
+
+                    }
+                    else
+                    {
+                      console.log("kanban red")
+                      result="red"
+                    }
+              } //end of for loop
+    
+  }//end of is array if
+
+
+
+console.log("this is the result after kanbancheck " + result + " this is the run " + run)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ if(result==="red" && run===true)
+      {
+    
+      if (Session.get("counter")>=1)
+    {  console.log("setting text false c")
+   Template.instance().state.set("kanbangood",true)
+     Template.instance().state.set("text", result)
+    }
+ Session.set("descshow",true)
+  var test3="The partnumber you scanned was: "
+       test3=test3.concat(scan2)
+//don't show description if it was ekanban
+Materialize.toast(test3, 999000,'blue ch z-depth-2')
+        if (typeof scan2desc=="string")
+        {
+       var test4="Description: "
+         test4=test4.concat(scan2desc)
+        Materialize.toast(test4, 999000,'blue ch z-depth-2')
+        Template.instance().state.set('partscandesc',test4)
+      }
+     var test2="The partnumber should have been: "
+   
+    test2=test2.concat(Session.get("scanned"))
+     var test5="Description: "
+   
+    test5=test5.concat(Session.get("scannedDesc"))
+ 
+  Materialize.toast(test2, 999000,'orange ch z-depth-2')
+    Materialize.toast(test5, 999000,'orange ch z-depth-2')
+/*
+if click acknowledge then the toast containing the incorrect color should disappear
+*/
+var colortest=' <button class="btn btn-default 6 #78909c blue z-depth-5 " id="test1" onclick="myFunction()" >Acknowledge</button>'
+  var $toastContent = $(colortest);
+  Materialize.toast1($toastContent, 999000, 'ch');
+$('#test1').mouseup(function() { this.blur() })
+
+
+    Template.instance().state.set('partscan', test3);
+    
+    Template.instance().state.set('partshould',test2)
+    Template.instance().state.set('partshoulddesc',test5)
+
+  
+     run=false
+     complete=true
+   }
+   else if(result==="green" && run===true)
+   {
+    Session.set("descshow",false)
+    Materialize.toast('Match', 4000,'indigo lighten-1 z-depth-2')
+    //count shouldn't go up after the bag and box are scanned and
+    //the scanned item was ekanban
+      if (Session.get("counter")>=1)
+    {console.log("setting text true c")
+  Template.instance().state.set("text", result)
+   }
+    count= Session.get("counter")
+   
+    count = count+1
+ 
+
+ 
+
+
+    
+      Session.set("counter", count)
+      
+ run=false
+     complete=true
+   
+
+   }
+   
+  if (result==="green")
+  {
+
+     
+    
+    $('#initials').val('');
+   Session.set("color", "green")
+    
+  }
+  else if (result==="red")
+  {
+
+    if (Template.instance().state.get("kanban")===true)
+    {
+     
+
+    }
+    record=record+1
+
+    Session.setPersistent("record", record)
+    //Tell what partnumber should have been
+    
+    
+    $('#initials').val('');
+  Session.set("color", "red")
+   
+    
+  }
+ 
+}
+
+else if (typeof ReactiveMethod.call('compare', scan2,Session.get("scanned"))==="string" &&Template.instance().state.get("kanban")==false &&run==true )
+{
+
+     var result=ReactiveMethod.call('compare', scan2,Session.get("scanned"))
+     Session.set("result",result)
+  
+
+ if(result==="red" && run===true)
+      {
+         if (Session.get("counter")>=1)
+    {  console.log("setting text false d")
+      Template.instance().state.set("kanbangood",true)
+    Template.instance().state.set("text", result)
+  
+    }
+ Session.set("descshow",true)
+  var test3="The partnumber you scanned was: "
+       test3=test3.concat(scan2)
+//don't show description if it was ekanban
+Materialize.toast(test3, 999000,'blue ch z-depth-2')
+        if (typeof scan2desc=="string")
+        {
+       var test4="Description: "
+         test4=test4.concat(scan2desc)
+        Materialize.toast(test4, 999000,'blue ch z-depth-2')
+        Template.instance().state.set('partscandesc',test4)
+      }
+     var test2="The partnumber should have been: "
+   
+    test2=test2.concat(Session.get("scanned"))
+     var test5="Description: "
+   
+    test5=test5.concat(Session.get("scannedDesc"))
+ 
+  Materialize.toast(test2, 999000,'orange ch z-depth-2')
+    Materialize.toast(test5, 999000,'orange ch z-depth-2')
+/*
+if click acknowledge then the toast containing the incorrect color should disappear
+*/
+var colortest=' <button class="btn btn-default 6 #78909c blue z-depth-5 " id="test1" onclick="myFunction()" >Acknowledge</button>'
+  var $toastContent = $(colortest);
+  Materialize.toast1($toastContent, 999000, 'ch');
+$('#test1').mouseup(function() { this.blur() })
+
+
+    Template.instance().state.set('partscan', test3);
+    
+    Template.instance().state.set('partshould',test2)
+    Template.instance().state.set('partshoulddesc',test5)
+
+  
+     run=false
+     complete=true
+   }
+   else if(result==="green" && run===true)
+   {
+    Session.set("descshow",false)
+    Materialize.toast('Match', 4000,'indigo lighten-1 z-depth-2')
+    //count shouldn't go up after the bag and box are scanned and
+    //the scanned item was ekanban
+   if (Session.get("counter")>=1)
+    {console.log("setting text true d")
+  Template.instance().state.set("text", result)
+ }
+    count= Session.get("counter")
+   
+    count = count+1
+  
+
+    
+
+
+    
+      Session.set("counter", count)
+      
+    
+ run=false
+     complete=true
    
 
    }
@@ -1437,8 +1876,11 @@ else if (Template.instance().state.get("bag")===false || Session.get("boxoverrid
 //color=color.concat(" cp z-depth-2")
 
 //Materialize.toast(word, 4000, color)
+//Here the job scanning is finished/complete
        Materialize.toast(front, 999999000, 'indigo lighten-1 cp z-depth-2')
+       Template.instance().state.set("text", null)
 Meteor.call('scansInsert',Session.get("tech") ,Session.get("scanned"),Session.get("record"),Session.get("kanbanoverride"),Session.get("bagoverride"),Session.get("boxoverride"))
+     
      var x = document.getElementById("snackbar")
   /*
       Showing the snack bar here with the part number of the particular job order
@@ -1454,6 +1896,7 @@ Meteor.call('scansInsert',Session.get("tech") ,Session.get("scanned"),Session.ge
     
       Session.set("start", 3)
       run=true
+      complete=false
     }
     
       
@@ -1646,7 +2089,10 @@ else if (Template.instance().state.get("bag")===false || Session.get("boxoverrid
 //color=color.concat(" cp z-depth-2")
 
 //Materialize.toast(word, 4000, color)
+
+//Here the job scanning is finished/complete
        Materialize.toast(front, 999999000, 'indigo lighten-1 cp z-depth-2')
+       Template.instance().state.set("text", null)
 Meteor.call('scansInsert',Session.get("tech") ,Session.get("scanned"),Session.get("record"),Session.get("kanbanoverride"),Session.get("bagoverride"),Session.get("boxoverride"))
      var x = document.getElementById("snackbar")
  // console.log("This is the class name " + x.className)
@@ -1660,6 +2106,7 @@ Meteor.call('scansInsert',Session.get("tech") ,Session.get("scanned"),Session.ge
     
       Session.set("start", 3)
       run=true
+      complete=false
     }
     
       
@@ -1669,7 +2116,292 @@ Meteor.call('scansInsert',Session.get("tech") ,Session.get("scanned"),Session.ge
        
    
     },
+text2:function()
+  {
+   
+//I need to determine if a bag was scanned 
 
+
+var kanbancount=Number(Session.get("kanbancount"))
+kanbancount=kanbancount+1
+
+
+if(  Session.get("counter")==-2)
+   {
+
+    return "Please enter your initials"
+    //Session.set("scan",0)
+    
+  }  
+ if(  Session.get("counter")==-1)
+   {
+
+    return "Please scan the part number"
+    //Session.set("scan",0)
+    
+  }  
+ if(  Session.get("counter")==0)
+   {
+
+
+    Template.instance().state.set("check",false)
+
+  function testbag()
+  {
+
+
+         if (Session.get("bagquestion")===false)
+{
+   
+ Session.set("bagquestion", true)
+}
+
+}
+
+
+    //Template.instance().state.set("kanbancheck",true)
+   
+    setTimeout(testbag, 20000);
+ 
+    
+
+
+
+
+    return "Please scan the individual sample or carton label or container label: "
+    //Session.set("scan",0)
+   
+  }      
+    
+    else if ( Session.get("counter")==1 || Session.get("counter")==2 )
+    {//Here I should show a toast that indicates what the user just scanned
+       function testbox()
+  {
+   
+         if (Session.get("bagquestion")===false)
+{
+    
+ Session.set("bagquestion", true)
+}
+
+}
+
+
+    //Template.instance().state.set("kanbancheck",true)
+   //After 20 seconds set badquestion to true
+    setTimeout(testbox, 20000);
+   
+
+
+//if (Template.instance().state.get("bag")===true || Session.get("bagoverride")==true)
+
+  /*
+      Template.instance().state.get("individualsampletag")
+     
+      Template.instance().state.get("cartonlabeltag")
+      
+      Template.instance().state.get("containerlabeltag")
+  */    
+    
+
+if (Template.instance().state.get("individualsampletag")===true )
+{ //individual sample scanned
+  /*
+  function testbag2()
+  {
+    
+         if (Session.get("bagquestion")===false)
+{
+   
+ Session.set("bagquestion", true)
+}
+
+}
+*/
+
+    //Template.instance().state.set("kanbancheck",true)
+   //after 20 seconds then set bagquestion to true
+   // setTimeout(testbag2, 20000);
+ //  Session.set("bagchecktext", "Box Label Override")
+
+
+
+
+
+
+
+/*
+I need to create a nested if statement that askes the user to scan
+a item based on the fact that scanned a specific item already
+
+
+*/
+if (Template.instance().state.get("cartonlabeltag")===true )
+{
+
+  return "Please scan the container label: "
+
+
+}
+else if (Template.instance().state.get("containerlabeltag")===true )
+{
+
+ return "Please scan the carton label: "    
+}
+
+else if (Template.instance().state.get("cartonlabeltag")===false && Template.instance().state.get("containerlabeltag")===false )
+{
+ return "Please scan the carton label or container label: "
+
+}
+
+}//end of IS initial scan
+else if (Template.instance().state.get("cartonlabeltag")===true  )
+{ 
+
+
+
+if (Template.instance().state.get("individualsampletag")===true )
+{
+
+  return "Please scan the container label: "
+
+
+}
+else if (Template.instance().state.get("containerlabeltag")===true )
+{
+
+ return "Please scan the individual sample: "    
+}
+else if (Template.instance().state.get("individualsampletag")===false && Template.instance().state.get("containerlabeltag")===false )
+{//Here only one thing was scanned 
+  return "Please scan the individual sample or container label: "
+
+}
+
+
+
+}
+else if (Template.instance().state.get("containerlabeltag")===true )
+{ 
+
+
+ 
+
+
+if (Template.instance().state.get("individualsampletag")===true )
+{
+
+  return "Please scan the carton label: "
+
+
+}
+else if (Template.instance().state.get("cartonlabeltag")===true )
+{
+
+ return "Please scan the individual sample: "    
+}
+else if (Template.instance().state.get("individualsampletag")===false && Template.instance().state.get("cartonlabeltag")===false )
+{//Here only one thing was scanned 
+  return "Please scan the individual sample or carton label: "
+
+}
+
+
+}
+
+  
+    
+    //Materialize.toast(test3, 15000,'blue')
+    }//end of if statement counter==1 or 2
+    else if ( Session.get("counter")===3 && Session.get("kanbancount")>0 )
+    {
+      
+      /*
+        if TC==2 then "Please scan the ekanban"
+        if TC>2 && KC-TC>=0 then "Please scan the next ekanban"
+    
+      */
+      
+   
+       function testkanban()
+  {
+         if (Session.get("kanbanquestion")===false)
+{
+    
+ Session.set("kanbanquestion", true)
+}
+}
+    //Template.instance().state.set("kanbancheck",true)
+   
+    setTimeout(testkanban, 20000);
+ 
+      Template.instance().state.set("kanbanshow", true)
+    
+      return "Please scan the eKanban ticket part number: "
+     
+    }
+    else if ( Session.get("counter")>3 && kanbancount- Session.get("counter")>=0 && Session.get("kanbancount")>0)
+    {
+        function testkanban2()
+  {
+         if (Session.get("kanbanquestion")===false)
+{
+    
+ Session.set("kanbanquestion", true)
+}
+}
+    //Template.instance().state.set("kanbancheck",true)
+   
+    setTimeout(testkanban2, 20000);
+ 
+      Template.instance().state.set("kanbanshow", true)
+      return "Please scan the next ekanban ticket part number"
+
+    }
+    else if (kanbancount- Session.get("counter")<0 || (Session.get("counter")>1&&Session.get("kanbancount")==0))
+
+    {
+      Session.set("scan2",null)
+ 
+       Template.instance().state.set("kanban", false)
+      Session.set("kanbanquestion", false)
+      Session.set("bagquestion", false)
+      var word=myFunction()
+      var front = '<span class="toasttextbig center spantest"> '
+      front = front.concat(word)
+      front=front.concat(' </span>')
+//var color=myFunctionColor()
+//color=color.concat(" cp z-depth-2")
+
+//Materialize.toast(word, 4000, color)
+
+//Here the job scanning is finished/complete
+       Materialize.toast(front, 999999000, 'indigo lighten-1 cp z-depth-2')
+       Template.instance().state.set("text", null)
+Meteor.call('scansInsert',Session.get("tech") ,Session.get("scanned"),Session.get("record"),Session.get("kanbanoverride"),Session.get("bagoverride"),Session.get("boxoverride"))
+     var x = document.getElementById("snackbar")
+ // console.log("This is the class name " + x.className)
+  if (x.className != "show cp z-depth-2" && typeof Session.get("scannedPartnumber")=="string")
+{
+    x.className = "show cp z-depth-2";
+    //setTimeout(function(){ x.className = x.className.replace("show", ""); }, 999999000);
+}
+
+      //I need to have a session variable I setup next that triggers the final toast and snack bar to pop up
+    
+      Session.set("start", 3)
+      run=true
+      complete=false
+    }
+    
+      
+    
+           
+
+       
+   
+    },
   kanbancheck: function()
   {
   
@@ -1970,7 +2702,8 @@ var colormethod=ReactiveMethod.call('color', Session.get("scan2"),Session.get("k
 }
 else if (counter>=2&&Session.get("kanbansucceeded")==true)
 {  console.log("setting text true kanban succeded")
-   Template.instance().state.set("text", true)
+//kanban succeeded is a session variable that is true when the kanban override is pressed
+   Template.instance().state.set("text", "green")
 var colormethod=ReactiveMethod.call('color', Session.get("scan2"),Session.get("kanbansucceeded"),Session.get("scanned"))
 // Session.setPersistent("kanbanoverride",true)
 
@@ -1990,8 +2723,11 @@ At this point I need to go into the database
 //Only run this code if count is 
 //console.log("color typeof is object " + typeof ReactiveMethod.call('color', Session.get("scan2"),Session.get("kanbanoverride"),Session.get("scanned"))==="object")
 
-console.log("colormethod "+colormethod+" counter "+counter+"template kanban "+Template.instance().state.get("kanban")+"run "+run)
-if ((typeof colormethod!="undefined"&&counter>=2&&run==true)||Session.get("kanbansucceeded")==true)
+console.log("colormethod "+colormethod+" counter "+counter+"template text "+Template.instance().state.get("text")+"run "+run)
+//This function needs to only run once per 
+
+
+if ((typeof colormethod!="undefined"&&counter>=2&&complete==true &&Template.instance().state.get("text")!=null )||Session.get("kanbansucceeded")==true)
   {
 
    
@@ -2069,17 +2805,20 @@ kanbancount- Session.get("counter")
 
 //Make this go once
 console.log("this is template text "+ Template.instance().state.get("text"))
-if (Template.instance().state.get("text")===false)
+if (Template.instance().state.get("text")==="red" )
 {
+    //Here the kanban was incorrectly scanned
    Materialize.toast2(test2, 10000, 'indigo lighten-1 z-depth-2 toasttextbig');
     Materialize.toast2($toastContent, 10000, '');
 }
- else if (Template.instance().state.get("text")===true)
+ else if (Template.instance().state.get("text")==="green")
 {
 
+//Here the kanban was correctly scanned
    Materialize.toast2(test2, 999999000, 'indigo lighten-1 cp z-depth-2 toasttextbig');
  
     Materialize.toast2($toastContent, 999999000, 'cp');
+    Template.instance().state.set("text",null)
     Session.setPersistent("kanbansucceeded",false)
 }
 
@@ -2432,7 +3171,7 @@ Session.setPersistent("boxoverride", false)
 Session.set("contents",null)
 Session.set("itemContents",null)
 Session.set("kanbancheck", false)
-
+Template.instance().state.set("text", null)
 Session.set("kanbantag", 0)
 Session.set("scanned",null)
  Session.set("kanbanquestion", false)
@@ -2440,6 +3179,12 @@ Session.set("scanned",null)
  goodbag=false
  Session.set("descshow",false)
  Session.set("result", null)
+
+Template.instance().state.set("individualsampletag", false)
+  Template.instance().state.set("cartonlabeltag", false)
+  Template.instance().state.set("containerlabeltag", false)
+
+
 $( ".cp" ).hide();
 
  Session.setPersistent("scannedOrdernumber", null)
@@ -2452,6 +3197,7 @@ $( ".cp" ).hide();
  box=0
  test=0
  run=true
+ complete=false
  record=0
   count=-2
     
@@ -2500,11 +3246,13 @@ Session.set("kanbancheck", false)
  Session.set("bagquestion", false)
  goodbag=false
 Session.set("kanbantag", 0)
-
+Template.instance().state.set("text", null)
  Session.set("kanbanquestion", false)
  Session.set("descshow",false)
  Session.set("result", null)
-
+Template.instance().state.set("individualsampletag", false)
+  Template.instance().state.set("cartonlabeltag", false)
+  Template.instance().state.set("containerlabeltag", false)
 
  Session.setPersistent("scannedOrdernumber", null)
   var x = document.getElementById("snackbar")
@@ -2515,6 +3263,7 @@ Session.set("kanbantag", 0)
  box=0
  test=0
  run=true
+ complete=false
  record=0
   count=-2
     

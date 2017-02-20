@@ -1,8 +1,8 @@
 StandardLegends = new Mongo.Collection(null);
- Template.searchoperator.rendered = function () {
+ Template.searchoperator.created = function () {
 
 
-Meteor.subscribe('dataentries');
+//Meteor.subscribe('dataentriesnames', Session.get("startgraph"),Session.get("endgraph"));
 
 }
 
@@ -23,7 +23,7 @@ Template.searchoperator.helpers({
     };
   },
   legends: function() {
-    return Dataentries.find({name:Session.get("operator")});
+    //return Dataentries.find({name:Session.get("operator")});
   },
   dataentries: function() {
     /*
@@ -32,10 +32,9 @@ Template.searchoperator.helpers({
 */
    // console.log("this is the count " +Dataentries.find({name:Session.get("operator")}).count() )
     //return Dataentries.find({name:Session.get("operator")});
-   var distinctEntries = _.uniq(Dataentries.find({name:Session.get("operator")}, {sort: {workcenter:1}, fields: {workcenter:true}}).fetch().map(function(x) {
- return x.workcenter;
- }), true);
- return distinctEntries;
+    //server side code
+    return ReactiveMethod.call('dataentriesWorkcenters',Session.get("operator"))
+  
   }
 });
 

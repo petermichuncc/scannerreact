@@ -36,8 +36,11 @@ import { Tasks } from '../api/tasks.js';
 import Task from './Task.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import TextField from 'material-ui/TextField';
 //Work on this page
 // App component - represents the whole app
+ //$("link[href='materialize.css']").disabled = true;
+ // $("link[href='_materialize.scss']").disabled = true;
 class First extends Component {
    
 
@@ -141,7 +144,19 @@ myClick() {
 }
 //These functions are components used by the program
 function UserGreeting(props) {
-  return <h1>Welcome back!</h1>;
+  return (
+    <div>
+<TextField
+      hintText="Hint Text"
+      floatingLabelText="Please enter the employee's name"
+    />
+<br />
+</div>
+
+    )
+
+
+
 }
 
 function GuestGreeting(props) {
@@ -150,6 +165,7 @@ function GuestGreeting(props) {
 
 function Greeting(props) {
   const isLoggedIn = props.isLoggedIn;
+  //This function is choosing a component to show
   if (isLoggedIn==0) {
     return <UserGreeting />;
   }
@@ -161,9 +177,8 @@ function Greeting(props) {
 
 function LoginButton(props) {
   return (
-    <button onClick={props.onClick}>
-      Login
-    </button>
+    <RaisedButton label="Primary" primary={true} onClick={props.onClick} />
+    
   );
 }
 

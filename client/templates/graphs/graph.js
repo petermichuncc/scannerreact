@@ -7,16 +7,35 @@ Session.set("department1", "datacom")
 Session.set("choice", null)
 Session.set("graphname", "Temp vs Permanent")
 
-Template.graph.rendered = function(){
-	 
+Template.graph.created = function(){
+	
+Meteor.subscribe('dataentriesnames', Session.get("startgraph"),Session.get("endgraph"));
 
+};
+
+Template.graph.rendered = function(){
+  if(BrowserDetect.browser == "Firefox"){
+  console.log("this is firefox")
+ Session.set("browser","firefox")
+}
+if(BrowserDetect.browser != "Chrome"){
+  console.log("this is not chrome")
+
+}
+else
+  {
+    Session.set("browser","chrome")
+    console.log("this is chrome")
+ 
+}
 
 };
 
 Template.graph.helpers({
     tempaverage: function () {
 //ReactiveMethod.call('tempaverage')
-}
+},
+
 
 })
 
@@ -95,6 +114,7 @@ else if (Session.get("countnew")==2 && Session.get("choice")=="operator")
 {
 //Here I need to grab the name of the operator and use this to calculate average productivity by
 //shift
+Session.set("workcenterchoice", null)
 name=$( "#name" ).val()
   value=$( "#name" ).val()
   console.log("THis is the input in if statement " +$( "#name" ).val())

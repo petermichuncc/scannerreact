@@ -12,6 +12,7 @@
 
 <body class={{$.Session.get 'color'}}>
 <!-- choose which good function to show here -->
+ {{colorFxn}}
  {{#if $.Session.equals 'section' "raceway"}}
         {{good}}  
 
@@ -21,13 +22,17 @@
         {{good1}}  
 
           {{/if}}
+ {{#if $.Session.equals 'section' "husky"}}
+        
+        {{good2}}  
 
+          {{/if}}
 {{scan}}
- {{colorFxn}}
+<div id="outer">
 <div class="outer-div">
 <span class="toasttextbig center">
 <div id="snackbar" class="center">{{partnumber}}</div>
-</span></div>
+</span></div></div>
      {{#if $.Session.equals 'start' 3}}
 {{piecesperbag}}
  {{bagsperbox}}
@@ -36,7 +41,7 @@
  {{/if}}
 <div class="center" id="repairlog_container">
 <img src="logo.jpg " class="z-depth-3"><br><br>
-            <div id="centered_box"  class="z-depth-5">
+            <div id="centered_box_blue"  class="z-depth-5">
           
           {{#if $.Session.equals 'counter' -1}}
 
@@ -51,20 +56,20 @@
              
  Start production
   <br>    
-<button class="btn btn-default 10 #78909c indigo z-depth-3 whitetext" type="submit">Start a new job</button>
+<button class="btn btn-default btn-large waves-effect waves-light 10 #78909c indigo z-depth-3 whitetext " type="submit">Start a new job</button>
 <br>
 
 
 </div>
 {{/if}}
         {{#if $.Session.equals 'start' 1}}
-      Current Department: {{section}}  
+    <span class="thick">  Current Department: {{section}}  </span>
       <br>
-        <button class="btn btn-default 9 #78909c indigo z-depth-3 whitetext" type="submit">Start a new job</button>
+        <button class="btn btn-default btn-large waves-effect waves-light margin-bottom 9 #78909c indigo z-depth-3 whitetext " type="submit">Start a new job</button>
        
-
+        
         <br>
-        <button class="btn btn-default section #78909c indigo z-depth-3 whitetext" type="submit">Change department</button>
+        <button class="btn btn-default btn-large waves-effect waves-light section #78909c indigo z-depth-3 whitetext" type="submit">Change department</button>
         <!-- Make this button change the text shown for which department is running-->
       <!-- <button class="btn btn-default 9 #78909c indigo z-depth-3 whitetext" type="submit">Raceway</button>-->
 {{/if}}
@@ -72,19 +77,24 @@
        <div class="center ">
        <!-- Change the text here -->
        {{#if $.Session.equals 'section' "raceway"}}
-        {{text}}  
+      <span class="thick">   {{text}}  </span>
 
           {{/if}}
           {{#if $.Session.equals 'section' "blister1"}}
         
-        {{text1}}  
+      <span class="thick">   {{text1}}  </span>
+
+          {{/if}}
+          {{#if $.Session.equals 'section' "husky"}}
+        
+      <span class="thick">   {{text2}}  </span>
 
           {{/if}}
          {{kanbanamount}}
      
-
+    <div class="center mytext">
         <input type="initials" name="initials"  required class="form-control mytext"  id="initials" placeholder="" data-disable-touch-keyboard autofocus autocomplete="off">
-       
+       </div>
        </div>
           
       
@@ -95,12 +105,12 @@
      
     {{desc}}
 {{#if $.Session.equals 'counter' -2}}
-<button class="btn btn-default 8 #78909c indigo z-depth-3 whitetext " type="submit">Next</button><br>
-<button class="btn btn-default 0 #78909c indigo z-depth-3 whitetext " type="submit">Previous</button>
+<button class="btn btn-default btn-large waves-effect waves-light margin-bottom 8 #78909c indigo z-depth-3 whitetext " type="submit">Next</button><br>
+<button class="btn btn-default btn-large waves-effect waves-light 0 #78909c indigo z-depth-3 whitetext " type="submit">Previous</button>
 
 {{else}}
 {{#if kanbancheck}}
-<button class="btn btn-default 2  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNorm">Kanban Ticket Override</button>
+<button class="btn btn-default btn-large waves-effect waves-light margin-bottom 2  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNorm">Kanban Ticket Override</button>
 <br>
 {{/if}}
 <!-- Only show specific check based on which department is selected -->
@@ -108,19 +118,19 @@
    {{#if $.Session.equals 'section' "raceway"}}       
 {{#if bagcheck}}
 
-<button class="btn btn-default 17 20  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNormbag">Printed Bag/Box Label Override</button>
+<button class="btn btn-default btn-large waves-effect waves-light 17 20  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNormbag">Printed Bag/Box Label Override</button>
 <br>
 {{/if}}
 {{/if}}
   {{#if $.Session.equals 'section' "blister1"}}
 {{#if bagcheck1}}
 
-<button class="btn btn-default 17 20  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNormbag">Blister Card/Label Override</button>
+<button class="btn btn-default btn-large waves-effect waves-light 17 20  blue z-depth-2 "  data-toggle="modal" data-target="#myModalNormbag">Blister Card/Label Override</button>
 <br>
 {{/if}}
 {{/if}}
 
-<button class="btn btn-default #78909c 10 indigo z-depth-3 whitetext center" style="outline:none;-moz-outline:none" hidefocus="true" type="submit">Restart job</button>
+<button class="btn btn-default btn-large waves-effect waves-light #78909c margin-bottom 10 indigo z-depth-3 whitetext center" style="outline:none;-moz-outline:none" hidefocus="true" type="submit">Restart job</button>
 <br>
 
 
