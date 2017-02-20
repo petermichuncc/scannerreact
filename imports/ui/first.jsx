@@ -139,8 +139,7 @@ myClick() {
 
  
 }
-
-
+//These functions are components used by the program
 function UserGreeting(props) {
   return <h1>Welcome back!</h1>;
 }
@@ -154,19 +153,33 @@ function Greeting(props) {
   if (isLoggedIn==0) {
     return <UserGreeting />;
   }
-  else if(isLoggedIn==1)
-    {
+  else if (isLoggedIn==1)
+  {
   return <GuestGreeting />;
-      }
+}
 }
 
 function LoginButton(props) {
   return (
     <button onClick={props.onClick}>
-   Test
+      Login
     </button>
   );
 }
+
+function LogoutButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
+}
+
+
+  //return  <RaisedButton label="Primary" primary={true} onClick={props.onClick} />
+   
+  
+
 
 First.propTypes = {
   tasks: PropTypes.array.isRequired,
