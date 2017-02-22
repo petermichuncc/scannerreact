@@ -26,6 +26,7 @@ grab user input based on the state of the app
 
 
 */}
+
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
@@ -37,6 +38,8 @@ import Task from './Task.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 //Work on this page
 // App component - represents the whole app
  //$("link[href='materialize.css']").disabled = true;
@@ -52,7 +55,8 @@ class First extends Component {
     this.state = {
        name: '',
       isLoggedIn: 0,
-               textFieldValue:""};
+               textFieldValue:"",
+               value:1};
 
     //this.state = {value: ''};
   }
@@ -72,7 +76,10 @@ class First extends Component {
     this.setState({state});
 
   }
-
+  handleChangeNew(event, index, value)
+  {
+    this.setState({value});
+}
   handleLoginClick() {
     //Here I can change the state based on a click
     console.log("this is the state "+ this.state.name)
@@ -154,11 +161,21 @@ myClick() {
       floatingLabelText="Please enter the employee's name"
       
     />
-
+     
   if (isLoggedIn==0) {
     return (
       <div>
-        {test}
+       <SelectField
+          floatingLabelText="Department"
+          value={this.state.value}
+          onChange={this.handleChangNew}
+        >
+          <MenuItem value={1} primaryText="Never" />
+          <MenuItem value={2} primaryText="Every Night" />
+          <MenuItem value={3} primaryText="Weeknights" />
+          <MenuItem value={4} primaryText="Weekends" />
+          <MenuItem value={5} primaryText="Weekly" />
+        </SelectField>
         <br/>
         {button}
       </div>

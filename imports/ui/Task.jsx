@@ -1,3 +1,6 @@
+const injectTouchTapEvent = require('react-tap-event-plugin');
+injectTouchTapEvent();
+
 import React, { Component, PropTypes } from 'react';
  import { Tasks } from '../api/tasks.js';
 // Task component - represents a single todo item
