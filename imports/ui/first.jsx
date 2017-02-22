@@ -62,16 +62,20 @@ class First extends Component {
             textFieldValue: ''
         };
     }
-  handleChange(name, value){
-    console.log("this is the value "+ value)
+  handleChange(name, e){
+   console.log("this is typeof "+ typeof e.target.value)
+    console.log("this is the value "+ e.target.value)
+   console.log("this is the name "+name)
+    
     let state = this.state;
-    state[name] = value;
+    state[name] = e.target.value;
     this.setState({state});
 
   }
 
   handleLoginClick() {
     //Here I can change the state based on a click
+    console.log("this is the state "+ this.state.name)
     if (this.state.isLoggedIn==0)
       {
     this.setState({isLoggedIn: 1});
@@ -138,23 +142,29 @@ myClick() {
     const isLoggedIn = this.state.isLoggedIn;
     
     let button = null;
-
+    let button2 = null;
 
    
       button = <LoginButton onClick={this.handleLoginClick} />;
- 
-    return (
-      <div>
-      <TextField
-      onChange={this.handleChange.bind(this, 'name')}
+      button2 = <LogoutButton onClick={this.handleLoginClick} />;
+      var test=<TextField
+      name='name' value={this.state.textFieldValue}
+      onChange={this.handleChange.bind(this, 'textFieldValue')}
       hintText="Hint Text"
       floatingLabelText="Please enter the employee's name"
       
     />
-        <UserGreeting isLoggedIn={isLoggedIn} />
+
+  if (isLoggedIn==0) {
+    return (
+      <div>
+        {test}
+        <br/>
         {button}
       </div>
     );
+  }
+
   }
 
   
@@ -211,9 +221,7 @@ function LoginButton(props) {
 
 function LogoutButton(props) {
   return (
-    <button onClick={props.onClick}>
-      Logout
-    </button>
+     <RaisedButton label="Previous" primary={true} onClick={props.onClick} />
   );
 }
 
