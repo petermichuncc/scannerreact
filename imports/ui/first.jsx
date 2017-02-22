@@ -49,10 +49,26 @@ class First extends Component {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
    
-    this.state = {isLoggedIn: 0};
+    this.state = {
+       name: '',
+      isLoggedIn: 0,
+               textFieldValue:""};
 
+    //this.state = {value: ''};
   }
  
+  getInitialState() {
+        return {
+            textFieldValue: ''
+        };
+    }
+  handleChange(name, value){
+    console.log("this is the value "+ value)
+    let state = this.state;
+    state[name] = value;
+    this.setState({state});
+
+  }
 
   handleLoginClick() {
     //Here I can change the state based on a click
@@ -71,7 +87,9 @@ class First extends Component {
     // Find the text field via the React ref
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
     console.log("text on client " + text)
-    Meteor.call('tasks.insert', text);
+   
+
+   // Meteor.call('tasks.insert', text);
 
     // Clear form
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
@@ -90,6 +108,7 @@ myClick() {
        return { showMe : false };
     }
     onClick() {
+      console.log("Here is data from text " + event.target.value)
        this.setState({ showMe : true} );
     }
 
@@ -126,7 +145,13 @@ myClick() {
  
     return (
       <div>
-        <Greeting isLoggedIn={isLoggedIn} />
+      <TextField
+      onChange={this.handleChange.bind(this, 'name')}
+      hintText="Hint Text"
+      floatingLabelText="Please enter the employee's name"
+      
+    />
+        <UserGreeting isLoggedIn={isLoggedIn} />
         {button}
       </div>
     );
@@ -144,18 +169,20 @@ myClick() {
 }
 //These functions are components used by the program
 function UserGreeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  //This function is choosing a component to show
+  if (isLoggedIn==0) {
   return (
     <div>
-<TextField
-      hintText="Hint Text"
-      floatingLabelText="Please enter the employee's name"
-    />
+
+              
+
 <br />
 </div>
 
     )
 
-
+}
 
 }
 
@@ -177,7 +204,7 @@ function Greeting(props) {
 
 function LoginButton(props) {
   return (
-    <RaisedButton label="Primary" primary={true} onClick={props.onClick} />
+    <RaisedButton label="Next" primary={true} onClick={props.onClick} />
     
   );
 }
