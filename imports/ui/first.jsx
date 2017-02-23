@@ -56,7 +56,7 @@ class First extends Component {
        name: '',
       isLoggedIn: 0,
                textFieldValue:"",
-               value:1};
+               value:2};
 
     //this.state = {value: ''};
   }
@@ -76,9 +76,21 @@ class First extends Component {
     this.setState({state});
 
   }
-  handleChangeNew(event, index, value)
-  {
-    this.setState({value});
+  handleChangeNew(event, index, value) 
+  { 
+    console.log("trying handlechange ")
+    console.log("this is the index "+index)
+    console.log("this is the event "+ event)
+    console.log("this is the event value"+ value)
+    console.log("this is the event" + event.target.value)
+
+    var name='value';
+        let state = this.state;
+    state[name] = value;
+    this.setState({state});
+
+    //this.setState({value});
+
 }
   handleLoginClick() {
     //Here I can change the state based on a click
@@ -168,9 +180,9 @@ myClick() {
        <SelectField
           floatingLabelText="Department"
           value={this.state.value}
-          onChange={this.handleChangNew}
+          onChange={this.handleChangeNew.bind(this)}
         >
-          <MenuItem value={1} primaryText="Never" />
+          <MenuItem value={1}  primaryText="Never" />
           <MenuItem value={2} primaryText="Every Night" />
           <MenuItem value={3} primaryText="Weeknights" />
           <MenuItem value={4} primaryText="Weekends" />
