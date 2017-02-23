@@ -26,7 +26,7 @@ grab user input based on the state of the app
 
 
 */}
-
+var cloneDeep = require('lodash.clonedeep');
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
@@ -58,6 +58,8 @@ class First extends Component {
                textFieldValue:"",
                value:2};
 
+               console.log("type of this.state "+ typeof this.state)
+
     //this.state = {value: ''};
   }
  
@@ -76,15 +78,16 @@ class First extends Component {
     this.setState({state});
 
   }
-  handleChangeNew(event, index, value) 
+  handleChangeNew(name, event, index,value) 
   { 
     console.log("trying handlechange ")
     console.log("this is the index "+index)
-    console.log("this is the event "+ event)
-    console.log("this is the event value"+ value)
-    console.log("this is the event" + event.target.value)
+    console.log("this is the event name"+ name)
+     console.log("this is the event value "+ value)
+    console.log("this is the event index"+ index)
+    //console.log("this is the event name" + event.target.name)
 
-    var name='value';
+    var name=name;
         let state = this.state;
     state[name] = value;
     this.setState({state});
@@ -178,9 +181,10 @@ myClick() {
     return (
       <div>
        <SelectField
+          name='test'
           floatingLabelText="Department"
           value={this.state.value}
-          onChange={this.handleChangeNew.bind(this)}
+          onChange={this.handleChangeNew.bind(this,'value')}
         >
           <MenuItem value={1}  primaryText="Never" />
           <MenuItem value={2} primaryText="Every Night" />
