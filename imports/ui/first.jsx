@@ -57,7 +57,7 @@ class First extends Component {
        name: '',
       isLoggedIn: 0,
                textFieldValue:"",
-               value:2,
+               value:"datacom",
                 controlledDate:0
              };
 
@@ -81,10 +81,11 @@ class First extends Component {
     this.setState({state});
 
   }
-  handleChangeDate(event, date)
+  handleChangeDate(name,event, date)
   {
     console.log("this is the date "+date)
-    
+    console.log("this is the event "+ event)
+    console.log("this is the name "+ name)
 var name="controlledDate";
         let state = this.state;
     state[name] = date;
@@ -197,7 +198,7 @@ myClick() {
        <DatePicker
         hintText="Date"
         value={this.state.controlledDate}
-        onChange={this.handleChangeDate}
+        onChange={this.handleChangeDate.bind(this,'controlledDate')}
       />
         <br/>
         {button}
@@ -213,11 +214,17 @@ myClick() {
           value={this.state.value}
           onChange={this.handleChangeNew.bind(this,'value')}
         >
-          <MenuItem value={1}  primaryText="Never" />
-          <MenuItem value={2} primaryText="Every Night" />
-          <MenuItem value={3} primaryText="Weeknights" />
-          <MenuItem value={4} primaryText="Weekends" />
-          <MenuItem value={5} primaryText="Weekly" />
+          
+           <MenuItem  value={"datacom"} primaryText="Datacom" />
+       <MenuItem  value={"packing"} primaryText="Packing" />
+       <MenuItem  value={"manual"} primaryText="Manual" />
+       <MenuItem  value={"scd"} primaryText="SCD" />
+       <MenuItem  value={"manualboxes"} primaryText="Manual Boxes" />
+       <MenuItem  value={"metals"} primaryText="Metals" />
+       <MenuItem  value={"raceway"} primaryText="Raceway" />
+       <MenuItem  value={"wiu"} primaryText="WIU" />
+       <MenuItem  value={"autoboxes"} primaryText="Auto boxes" />
+       <MenuItem  value={"husky"} primaryText="Husky" />
         </SelectField>
         <br/>
         {button}
