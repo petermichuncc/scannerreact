@@ -40,6 +40,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import DatePicker from 'material-ui/DatePicker';
 //Work on this page
 // App component - represents the whole app
  //$("link[href='materialize.css']").disabled = true;
@@ -56,7 +57,9 @@ class First extends Component {
        name: '',
       isLoggedIn: 0,
                textFieldValue:"",
-               value:2};
+               value:2,
+                controlledDate:0
+             };
 
                console.log("type of this.state "+ typeof this.state)
 
@@ -78,6 +81,18 @@ class First extends Component {
     this.setState({state});
 
   }
+  handleChangeDate(event, date)
+  {
+    console.log("this is the date "+date)
+    
+var name="controlledDate";
+        let state = this.state;
+    state[name] = date;
+    this.setState({state});
+
+
+  };
+
   handleChangeNew(name, event, index,value) 
   { 
     console.log("trying handlechange ")
@@ -176,8 +191,20 @@ myClick() {
       floatingLabelText="Please enter the employee's name"
       
     />
-     
-  if (isLoggedIn==0) {
+     if (isLoggedIn==0) {
+    return (
+      <div>
+       <DatePicker
+        hintText="Date"
+        value={this.state.controlledDate}
+        onChange={this.handleChangeDate}
+      />
+        <br/>
+        {button}
+      </div>
+    );
+  }
+  if (isLoggedIn==1) {
     return (
       <div>
        <SelectField
