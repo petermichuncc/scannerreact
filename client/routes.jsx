@@ -143,7 +143,13 @@ FlowRouter.route("/test", {
 })
   }
 });
-
+FlowRouter.route("/test2", {
+    action(params, queryParams) {
+     mount(dataLayout, {
+  content: <App/>
+})
+  }
+});
 
 AnotherComponent = React.createClass({
   render() {

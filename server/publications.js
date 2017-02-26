@@ -1,5 +1,5 @@
 //File that publishes all the databases used
-
+import '../imports/api/tasks.js';
 
 //ReactiveTable.publish("scans", Scans);
 

@@ -3,7 +3,10 @@ Start working on this and making this have functional if statements that
 grab user input based on the state of the app
 
 */}
+{/*
+Finish this page and get it functioning well
 
+*/}
 {/*
 
 <template name="first">
@@ -26,7 +29,7 @@ grab user input based on the state of the app
 
 
 */}
-var cloneDeep = require('lodash.clonedeep');
+
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
@@ -113,15 +116,17 @@ var name="controlledDate";
 }
   handleLoginClick() {
     //Here I can change the state based on a click
-    console.log("this is the state "+ this.state.name)
-    if (this.state.isLoggedIn==0)
+    console.log("this is the state "+ this.state.isLoggedIn)
+    if (this.state.isLoggedIn>=2)
       {
-    this.setState({isLoggedIn: 1});
+        this.setState({isLoggedIn: 0});
       }
-    else if (this.state.isLoggedIn==1)
+    else if (this.state.isLoggedIn>=0 &&this.state.isLoggedIn<2)
       {
-        this.setState({isLoggedIn: 2});
+        var current=this.state.isLoggedIn +1;
+    this.setState({isLoggedIn: current});
       }
+    
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -155,23 +160,10 @@ myClick() {
     }
 
   renderTasks() {
-    let filteredTasks = this.props.tasks;
-    if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => !task.checked);
-    }
-    return filteredTasks.map((task) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
-
-      return (
-        <Task
-          key={task._id}
-          task={task}
-          showPrivateButton={showPrivateButton}
-        />
-      );
-    });
-  } 
+    return this.props.tasks.map((task) => (
+      <Task key={task._id} task={task} />
+    ));
+  }
 
 
 
@@ -201,6 +193,7 @@ myClick() {
         onChange={this.handleChangeDate.bind(this,'controlledDate')}
       />
         <br/>
+           {this.renderTasks()}
         {button}
       </div>
     );
@@ -227,6 +220,27 @@ myClick() {
        <MenuItem  value={"husky"} primaryText="Husky" />
         </SelectField>
         <br/>
+        {button}
+      </div>
+    );
+  }
+  else if (isLoggedIn==2) {
+    return (
+      <div>
+       
+       <SelectField
+          name='test'
+          floatingLabelText="Employees status"
+          value={this.state.value? this.state.value: null}
+          onChange={this.handleChangeNew.bind(this,'value')}
+        >
+          
+           <MenuItem  value={"temp"} primaryText="Temp" />
+       <MenuItem  value={"permanent"} primaryText="Permanent" />
+      
+        </SelectField>
+        <br/>
+      
         {button}
       </div>
     );
@@ -299,8 +313,8 @@ function LogoutButton(props) {
 
 
 First.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  incompleteCount: PropTypes.number.isRequired,
+  tasks: PropTypes.array.isRequired
+  
 };
 
 export default createContainer(() => {
@@ -308,7 +322,7 @@ export default createContainer(() => {
     console.log("trying to export task")
   return {
 
-    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
+    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch()
+  
   };
 }, First);
