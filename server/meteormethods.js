@@ -1,4 +1,15 @@
 
+//transfer in new methods to new scanner program later
+Meteor.methods({
+    workcenters: function(department) {
+      var distinctEntries = _.uniq(Datacenters.find({department:department}, {sort: {workcenter:1}, fields: {workcenter:true}}).fetch().map(function(x) {
+ return x.workcenter;
+ }), true);
+ return distinctEntries;
+    }
+  });
+
+
 
 
   Meteor.methods({

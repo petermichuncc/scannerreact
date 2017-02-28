@@ -160,9 +160,59 @@ myClick() {
     }
 
   renderTasks() {
-    return this.props.tasks.map((task) => (
+    //Here render a select box with tasks inside
+     var workcenters=Meteor.call('workcenters')
+     console.log("this is the typeof workcenters "+typeof workcenters)
+  return(
+
+    <div>
+   <SelectField
+          name='test'
+          floatingLabelText="Department"
+          value={this.state.value}
+          onChange={this.handleChangeNew.bind(this,'value')}
+        >
+          {
+      this.props.tasks.map(function(task) {
+        //create if condition the grabs the selected department and shows
+        //only the 
+        return <MenuItem  value={task.text} primaryText={task.text} />
+      })
+    }
+         
+       
+        </SelectField>
+        </div>
+)
+/*
+  return(
+  <div>
+<form>
+  <select ref="userInput" defaultValue="" required>
+    <option value="" disabled>User</option>
+    {
+      this.props.tasks.map(function(task) {
+        return <option key={task._id}
+          value={task.text}>{task.text}</option>;
+      })
+    }
+  </select>
+</form>
+</div>
+)  
+*/
+
+     
+
+/*
+   return this.props.tasks.map((task) => (
       <Task key={task._id} task={task} />
     ));
+
+*/
+    
+
+
   }
 
 
