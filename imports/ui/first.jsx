@@ -118,7 +118,7 @@ var name="controlledDate";
   handleLoginClick() {
     //Here I can change the state based on a click
     console.log("this is the state "+ this.state.isLoggedIn)
-    if (this.state.isLoggedIn>=2)
+    if (this.state.isLoggedIn>=3)
       {
         this.setState({isLoggedIn: 0});
       }
@@ -162,7 +162,8 @@ myClick() {
 
   renderTasks() {
     //Here render a select box with tasks inside
-     var workcenters=Meteor.call('workcenters')
+     var workcenters=Meteor.call('workcenters',"raceway")
+     //This grabs all the workcenters
      console.log("this is the typeof workcenters "+typeof workcenters)
   return(
 
@@ -185,33 +186,6 @@ myClick() {
         </SelectField>
         </div>
 )
-/*
-  return(
-  <div>
-<form>
-  <select ref="userInput" defaultValue="" required>
-    <option value="" disabled>User</option>
-    {
-      this.props.tasks.map(function(task) {
-        return <option key={task._id}
-          value={task.text}>{task.text}</option>;
-      })
-    }
-  </select>
-</form>
-</div>
-)  
-*/
-
-     
-
-/*
-   return this.props.tasks.map((task) => (
-      <Task key={task._id} task={task} />
-    ));
-
-*/
-    
 
 
   }
@@ -235,7 +209,7 @@ myClick() {
       floatingLabelText="Please enter the employee's name"
       
     />
-     if (isLoggedIn==0) {
+    if (isLoggedIn==0) {
     return (
       <div>
        <DatePicker
@@ -249,7 +223,21 @@ myClick() {
       </div>
     );
   }
-  if (isLoggedIn==1) {
+    else if (isLoggedIn==1) {
+    return (
+      <div>
+       <DatePicker
+        hintText="Date"
+        value={this.state.controlledDate}
+        onChange={this.handleChangeDate.bind(this,'controlledDate')}
+      />
+        <br/>
+           {this.renderTasks()}
+        {button}
+      </div>
+    );
+  }
+  else if (isLoggedIn==2) {
     return (
       <div>
        <SelectField
@@ -275,7 +263,7 @@ myClick() {
       </div>
     );
   }
-  else if (isLoggedIn==2) {
+  else if (isLoggedIn==3) {
     return (
       <div>
        
