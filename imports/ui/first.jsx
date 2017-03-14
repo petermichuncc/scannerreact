@@ -45,7 +45,8 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
-
+var results=["Select a workcenter"]
+Session.set("workcenters",results)
 //Work on this page
 // App component - represents the whole app
  //$("link[href='materialize.css']").disabled = true;
