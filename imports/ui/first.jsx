@@ -45,6 +45,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
+
 //Work on this page
 // App component - represents the whole app
  //$("link[href='materialize.css']").disabled = true;
@@ -56,7 +57,7 @@ class First extends Component {
   constructor(props) {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
-   
+ 
     this.state = {
        name: '',
       isLoggedIn: 0,
@@ -162,11 +163,35 @@ myClick() {
 
   renderTasks() {
     //Here render a select box with tasks inside
-     var workcenters=Meteor.call('workcenters',"raceway")
-     //This grabs all the workcenters
-     console.log("this is the typeof workcenters "+typeof workcenters)
+   //  var workcenters=Meteor.call('workcenters',"raceway")
+   {/* this.props.tasks.map(function(task) {
+        //create if condition the grabs the selected department and shows
+        //only the 
+        return <MenuItem  value={task.text} primaryText={task.text} />
+      })
+    } */} 
+         
+ 
+   
+   
   return(
+    
+  Meteor.call('workcenters',"raceway",function(error, result){
+if(error){
+alert('Error');
+}else{
+   workcenters=result
+   Session.set("workcenters",workcenters)
 
+console.log("workcenters "+workcenters)
+
+}
+
+});
+console.log("this is the typeof workcenters "+typeof Session.get("workcenters"))
+
+     console.log("this is the contents"+ Session.get("workcenters"))
+     console.log("this is the contents no session"+ workcenters)
     <div>
    <SelectField
           name='test'
@@ -175,10 +200,12 @@ myClick() {
           onChange={this.handleChangeNew.bind(this,'value')}
         >
           {
-      this.props.tasks.map(function(task) {
+
+
+      this.props.workcenters.map(function(workcenter) {
         //create if condition the grabs the selected department and shows
         //only the 
-        return <MenuItem  value={task.text} primaryText={task.text} />
+        return <MenuItem  value={workcenter.workcenter} primaryText={workcenter.workcenter} />
       })
     }
          
@@ -361,7 +388,8 @@ export default createContainer(() => {
     console.log("trying to export task")
   return {
 
-    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch()
+    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
+    
   
   };
 }, First);

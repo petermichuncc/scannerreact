@@ -3,10 +3,11 @@
 Meteor.methods({
     workcenters: function(department) {
 
-
-      var distinctEntries = _.uniq(Datacenters.find({department:department}, {sort: {workcenter:1}, fields: {workcenter:true}}).fetch().map(function(x) {
+var results = [];
+      var distinctEntries = _.uniq(Datacenters.find({department:department}, {sort: {workcenter:1}, fields: {workcenter:true,description:true}}).fetch().map(function(x) {
   console.log('this is the workcenter '+x.workcenter)
- return x.workcenter;
+  var string=x.workcenter+" "+x.description
+ return string;
  }), true);
  return distinctEntries;
     }
