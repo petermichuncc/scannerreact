@@ -171,12 +171,7 @@ myClick() {
       })
     } */} 
          
- 
-   
-   
-  return(
-    
-  Meteor.call('workcenters',"raceway",function(error, result){
+ Meteor.call('workcenters',"raceway",function(error, result){
 if(error){
 alert('Error');
 }else{
@@ -184,14 +179,20 @@ alert('Error');
    Session.set("workcenters",workcenters)
 
 console.log("workcenters "+workcenters)
+console.log("type of workcenters in meteor call " + typeof workcenters)
 
 }
 
 });
-console.log("this is the typeof workcenters "+typeof Session.get("workcenters"))
+  console.log("this is the typeof workcenters "+typeof Session.get("workcenters"))
 
      console.log("this is the contents"+ Session.get("workcenters"))
-     console.log("this is the contents no session"+ workcenters)
+    // console.log("this is the contents no session"+ workcenters) 
+   
+  return(
+
+  
+
     <div>
    <SelectField
           name='test'
@@ -202,10 +203,10 @@ console.log("this is the typeof workcenters "+typeof Session.get("workcenters"))
           {
 
 
-      this.props.workcenters.map(function(workcenter) {
+      Session.get("workcenters").map(function(workcenter) {
         //create if condition the grabs the selected department and shows
         //only the 
-        return <MenuItem  value={workcenter.workcenter} primaryText={workcenter.workcenter} />
+        return <MenuItem  value={workcenter} primaryText={workcenter} />
       })
     }
          
