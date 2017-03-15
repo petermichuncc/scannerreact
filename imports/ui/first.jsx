@@ -171,7 +171,8 @@ myClick() {
         return <MenuItem  value={task.text} primaryText={task.text} />
       })
     } */} 
-         
+         //Grab data from a state holding the department that was 
+         //selected by the user
  Meteor.call('workcenters',"raceway",function(error, result){
 if(error){
 alert('Error');
