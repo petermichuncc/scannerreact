@@ -6,6 +6,9 @@ grab user input based on the state of the app
 {/*
 Finish this page and get it functioning well
 Test commit.
+
+
+Change the router from flow router to react router and test the performance benefits.
 */}
 {/*
 
