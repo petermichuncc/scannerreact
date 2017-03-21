@@ -130,11 +130,11 @@ var name="controlledDate";
   handleLoginClick() {
     //Here I can change the state based on a click
     console.log("this is the state "+ this.state.isLoggedIn)
-    if (this.state.isLoggedIn>=3)
+    if (this.state.isLoggedIn>=4)
       {
         this.setState({isLoggedIn: 0});
       }
-    else if (this.state.isLoggedIn>=0 &&this.state.isLoggedIn<2)
+    else if (this.state.isLoggedIn>=0 &&this.state.isLoggedIn<5)
       {
         var current=this.state.isLoggedIn +1;
     this.setState({isLoggedIn: current});
@@ -304,6 +304,14 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
     );
   }
   else if (isLoggedIn==3) {
+    return (
+      <div>
+       {this.renderTasks()}
+        {button}
+      </div>
+    );
+  }
+  else if (isLoggedIn==4) {
     return (
       <div>
        
