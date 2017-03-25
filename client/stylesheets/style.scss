@@ -615,4 +615,12 @@ body {
     width: 100%
 }
 
+.divcenter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 @import "{poetic:materialize-scss}/sass/materialize.scss";

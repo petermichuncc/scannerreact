@@ -130,7 +130,7 @@ var name="controlledDate";
   handleLoginClick() {
     //Here I can change the state based on a click
     console.log("this is the state "+ this.state.isLoggedIn)
-    if (this.state.isLoggedIn>=4)
+    if (this.state.isLoggedIn>=5)
       {
         this.setState({isLoggedIn: 0});
       }
@@ -249,20 +249,22 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
       floatingLabelText="Please enter the employee's name"
       
     />
-    if (isLoggedIn==0) {
-    return (
+if (isLoggedIn==0) {
+
+ return (
       <div>
-       <DatePicker
-        hintText="Date"
-        value={this.state.controlledDate}
-        onChange={this.handleChangeDate.bind(this,'controlledDate')}
-      />
+        <TextField
+      hintText="employee"
+      floatingLabelText="Please enter employee name"
+      floatingLabelFixed={true}
+    />
         <br/>
-           {this.renderTasks()}
+          
         {button}
       </div>
     );
-  }
+}
+
     else if (isLoggedIn==1) {
     return (
       <div>
@@ -272,12 +274,26 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
         onChange={this.handleChangeDate.bind(this,'controlledDate')}
       />
         <br/>
+          
+        {button}
+      </div>
+    );
+  }
+    else if (isLoggedIn==2) {
+    return (
+      <div>
+       <DatePicker
+        hintText="Date"
+        value={this.state.controlledDate}
+        onChange={this.handleChangeDate.bind(this,'controlledDate')}
+      />
+        <br/>
            {this.renderTasks()}
         {button}
       </div>
     );
   }
-  else if (isLoggedIn==2) {
+  else if (isLoggedIn==3) {
     return (
       <div>
        <SelectField
@@ -303,7 +319,7 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
       </div>
     );
   }
-  else if (isLoggedIn==3) {
+  else if (isLoggedIn==4) {
     return (
       <div>
        {this.renderTasks()}
@@ -311,7 +327,7 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
       </div>
     );
   }
-  else if (isLoggedIn==4) {
+  else if (isLoggedIn==5) {
     return (
       <div>
        

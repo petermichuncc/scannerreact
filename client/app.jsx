@@ -13,7 +13,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 export const dataLayout = ({content}) => (
 
 <MuiThemeProvider>
-
+{/*  Here is the div used for the first app */}
 
  
  <div id="dataentry_container" className="center" >
@@ -22,7 +22,7 @@ export const dataLayout = ({content}) => (
             <div id="centered_box_data"  className="z-depth-5 center">
         
  <div className="center">
- {/*  {content}  */}
+ 
 
        {content}
 
