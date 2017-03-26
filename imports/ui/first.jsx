@@ -55,6 +55,15 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
+import Paper from 'material-ui/Paper';
+
+const style = {
+  height: 380,
+  width: 1200,
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block',
+};
 var results=["Select a workcenter"]
 Session.set("workcenters",results)
 //Work on this page

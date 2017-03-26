@@ -13,6 +13,29 @@ Get this working without the css helpers from materialize
 */
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
+
+const style = {
+  height: 200,
+  width: 500,
+
+};
+
+const style2 = {
+  height: 150,
+  width: 350,
+
+};
+const PaperExampleSimple = () => (
+  <div>
+    <Paper style={style} zDepth={1} />
+    <Paper style={style} zDepth={2} />
+    <Paper style={style} zDepth={3} />
+    <Paper style={style} zDepth={4} />
+    <Paper style={style} zDepth={5} />
+  </div>
+);
+
 
 export const dataLayout = ({content}) => (
 
@@ -21,18 +44,21 @@ export const dataLayout = ({content}) => (
 
  
  <div id="dataentry_container" className="divcenter" >
-<img src="logo.jpg" className="z-depth-3"/><br/><br/>
+      <Paper style={style2} id="centered_box_data" zDepth={5} >
+<img src="logo.jpg"  />
+</Paper>
+<br/><br/>
 
-            <div id="centered_box_data"  className="z-depth-5">
-        
+
+            <Paper style={style} id="centered_box_data" zDepth={5} >
  <div className="center">
  
 
        {content}
 
 </div>
-
-</div><br/>
+</Paper>
+<br/>
 
 
 
