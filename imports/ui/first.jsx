@@ -41,6 +41,7 @@ Work on storing all the data into a meteor collection.
 */}
 //finish this soon
 //try out useful CSS frameworks
+//uses this for toast flawless:meteor-toastr
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
@@ -84,7 +85,7 @@ class First extends Component {
       isLoggedIn: 0,
                textFieldValue:"",
                value:"datacom",
-                controlledDate:0
+                controlledDate:""
              };
 
                console.log("type of this.state "+ typeof this.state)
@@ -133,7 +134,19 @@ var name="controlledDate";
         let state = this.state;
     state[name] = value;
     this.setState({state});
+Meteor.call('workcenters',this.state.value ,function(error, result){
+if(error){
+alert('Error');
+}else{
+   workcenters=result
+   Session.set("workcenters",workcenters)
 
+console.log("workcenters "+workcenters)
+console.log("type of workcenters in meteor call " + typeof workcenters)
+
+}
+
+});
 
     console.log("added item, this is the value "+this.state.value )
     //try to retrieve
@@ -157,6 +170,7 @@ var name="controlledDate";
       //I could have multiple buttons here for each type of input
 
       //grab data from the input field
+      var count=this.state.isLoggedIn
       var name=this.state.name
       console.log("this is the name " +name)
        if (name == "") {
@@ -164,8 +178,14 @@ var name="controlledDate";
 
         return false;
     }
-            console.log('this is the name ' +this.state.name)
-        var current=this.state.isLoggedIn +1;
+    var date=this.state.controlledDate
+      console.log("this is the date " +date)
+       if (date == "" && count==1) {
+        toastr.error("Date must be filled out")
+
+        return false;
+    }
+   var current=this.state.isLoggedIn +1;
     this.setState({isLoggedIn: current});
       }
     
@@ -213,19 +233,7 @@ myClick() {
          //Grab data from a state holding the department that was 
          //selected by the user
          console.log("calling render tasks this is the value "+this.state.value )
- Meteor.call('workcenters',this.state.value ,function(error, result){
-if(error){
-alert('Error');
-}else{
-   workcenters=result
-   Session.set("workcenters",workcenters)
-
-console.log("workcenters "+workcenters)
-console.log("type of workcenters in meteor call " + typeof workcenters)
-
-}
-
-});
+ 
   console.log("this is the typeof workcenters "+typeof Session.get("workcenters"))
 
      console.log("this is the contents"+ Session.get("workcenters"))
@@ -297,7 +305,7 @@ if (isLoggedIn==0) {
       <div>
        <DatePicker
         hintText="Date"
-        value={this.state.controlledDate}
+       
         onChange={this.handleChangeDate.bind(this,'controlledDate')}
       />
         <br/>
