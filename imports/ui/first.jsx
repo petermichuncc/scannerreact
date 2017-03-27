@@ -160,7 +160,8 @@ var name="controlledDate";
       var name=this.state.name
       console.log("this is the name " +name)
        if (name == "") {
-        alert("Name must be filled out");
+        toastr.error("Name must be filled out")
+
         return false;
     }
             console.log('this is the name ' +this.state.name)
