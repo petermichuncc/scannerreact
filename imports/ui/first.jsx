@@ -57,6 +57,7 @@ import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import Paper from 'material-ui/Paper';
 
+
 const style = {
   height: 380,
   width: 1200,
@@ -133,18 +134,36 @@ var name="controlledDate";
     state[name] = value;
     this.setState({state});
 
+
+    console.log("added item, this is the value "+this.state.value )
+    //try to retrieve
     //this.setState({value});
 
 }
   handleLoginClick() {
     //Here I can change the state based on a click
     console.log("this is the state "+ this.state.isLoggedIn)
-    if (this.state.isLoggedIn>=5)
+    //do input validation here
+
+
+
+    if (this.state.isLoggedIn>=4)
       {
         this.setState({isLoggedIn: 0});
       }
     else if (this.state.isLoggedIn>=0 &&this.state.isLoggedIn<5)
       {
+      //only increment if there is valid input
+      //I could have multiple buttons here for each type of input
+
+      //grab data from the input field
+      var name=this.state.name
+      console.log("this is the name " +name)
+       if (name == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+            console.log('this is the name ' +this.state.name)
         var current=this.state.isLoggedIn +1;
     this.setState({isLoggedIn: current});
       }
@@ -192,7 +211,8 @@ myClick() {
     } */} 
          //Grab data from a state holding the department that was 
          //selected by the user
- Meteor.call('workcenters',"raceway",function(error, result){
+         console.log("calling render tasks this is the value "+this.state.value )
+ Meteor.call('workcenters',this.state.value ,function(error, result){
 if(error){
 alert('Error');
 }else{
@@ -252,21 +272,18 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
       button = <LoginButton onClick={this.handleLoginClick} />;
       button2 = <LogoutButton onClick={this.handleLoginClick} />;
       var test=<TextField
-      name='name' value={this.state.textFieldValue}
-      onChange={this.handleChange.bind(this, 'textFieldValue')}
-      hintText="Hint Text"
-      floatingLabelText="Please enter the employee's name"
+      name='name' value={this.state.name}
+      onChange={this.handleChange.bind(this, 'name')}
+      hintText="employee"
+      floatingLabelText="Please enter employee name"
+      floatingLabelFixed={true}
       
     />
 if (isLoggedIn==0) {
 
  return (
       <div>
-        <TextField
-      hintText="employee"
-      floatingLabelText="Please enter employee name"
-      floatingLabelFixed={true}
-    />
+       {test}
         <br/>
           
         {button}
@@ -291,20 +308,6 @@ if (isLoggedIn==0) {
     else if (isLoggedIn==2) {
     return (
       <div>
-       <DatePicker
-        hintText="Date"
-        value={this.state.controlledDate}
-        onChange={this.handleChangeDate.bind(this,'controlledDate')}
-      />
-        <br/>
-           {this.renderTasks()}
-        {button}
-      </div>
-    );
-  }
-  else if (isLoggedIn==3) {
-    return (
-      <div>
        <SelectField
           name='test'
           floatingLabelText="Department"
@@ -325,10 +328,11 @@ if (isLoggedIn==0) {
         </SelectField>
         <br/>
         {button}
+          
       </div>
     );
   }
-  else if (isLoggedIn==4) {
+  else if (isLoggedIn==3) {
     return (
       <div>
        {this.renderTasks()}
@@ -336,7 +340,7 @@ if (isLoggedIn==0) {
       </div>
     );
   }
-  else if (isLoggedIn==5) {
+   else if (isLoggedIn==4) {
     return (
       <div>
        

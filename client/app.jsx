@@ -14,7 +14,7 @@ Get this working without the css helpers from materialize
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
-
+import Blaze from 'meteor/gadicc:blaze-react-component';
 const style = {
   height: 200,
   width: 500,

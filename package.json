@@ -9,6 +9,7 @@
     "classnames": "^2.2.5",
     "history": "^3.0.0",
     "ibm_db": "0.0.14",
+    "immutability-helper": "^2.1.2",
     "java": "^0.7.2",
     "jt400": "^0.1.1",
     "lodash": "^4.17.4",
