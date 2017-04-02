@@ -79,7 +79,7 @@ class First extends Component {
   constructor(props) {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
- 
+ this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.state = {
        name: '',
       isLoggedIn: 0,
@@ -190,6 +190,23 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
       }
     
   }
+  handleLogoutClick() {
+    //Here I can change the state based on a click
+    console.log("trying logout click")
+    //do input validation here
+
+
+
+    if (this.state.isLoggedIn>=1)
+      {
+         var current=this.state.isLoggedIn -1;
+    this.setState({isLoggedIn: current});
+      }
+   
+  
+      
+    
+  }
   handleSubmit(event) {
     event.preventDefault();
 
@@ -279,7 +296,7 @@ myClick() {
 
    
       button = <LoginButton onClick={this.handleLoginClick} />;
-      button2 = <LogoutButton onClick={this.handleLoginClick} />;
+      button2 = <LogoutButton onClick={this.handleLogoutClick} />;
       var test=<TextField
       name='name' value={this.state.name}
       onChange={this.handleChange.bind(this, 'name')}
