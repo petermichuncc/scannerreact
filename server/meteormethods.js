@@ -10,6 +10,7 @@ var results = [];
   results.push(string);
  
  }), true);
+      results=results.sort(function(a,b) { return a - b; });
  return results;
     }
   });

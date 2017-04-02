@@ -246,7 +246,7 @@ myClick() {
     <div>
    <SelectField
           name='test'
-          floatingLabelText="Department"
+          floatingLabelText="Workcenter"
           value={this.state.value}
           onChange={this.handleChangeNew.bind(this,'value')}
         >
@@ -310,11 +310,32 @@ if (isLoggedIn==0) {
       />
         <br/>
           
-        {button}
+        {button2} {button}
       </div>
     );
   }
-    else if (isLoggedIn==2) {
+  else if (isLoggedIn==2) {
+    return (
+      <div>
+       
+       <SelectField
+          name='test'
+          floatingLabelText="Employees status"
+          value={this.state.value? this.state.value: null}
+          onChange={this.handleChangeNew.bind(this,'value')}
+        >
+          
+           <MenuItem  value={"temp"} primaryText="Temp" />
+       <MenuItem  value={"permanent"} primaryText="Permanent" />
+      
+        </SelectField>
+        <br/>
+      
+        {button2} {button}
+      </div>
+    );
+  }
+    else if (isLoggedIn==3) {
     return (
       <div>
        <SelectField
@@ -336,40 +357,20 @@ if (isLoggedIn==0) {
        <MenuItem  value={"husky"} primaryText="Husky" />
         </SelectField>
         <br/>
-        {button}
+        {button2} {button}
           
       </div>
     );
   }
-  else if (isLoggedIn==3) {
+  else if (isLoggedIn==4) {
     return (
       <div>
        {this.renderTasks()}
-        {button}
+        {button2} {button}
       </div>
     );
   }
-   else if (isLoggedIn==4) {
-    return (
-      <div>
-       
-       <SelectField
-          name='test'
-          floatingLabelText="Employees status"
-          value={this.state.value? this.state.value: null}
-          onChange={this.handleChangeNew.bind(this,'value')}
-        >
-          
-           <MenuItem  value={"temp"} primaryText="Temp" />
-       <MenuItem  value={"permanent"} primaryText="Permanent" />
-      
-        </SelectField>
-        <br/>
-      
-        {button}
-      </div>
-    );
-  }
+   
 
   }
 
