@@ -50,8 +50,8 @@ export const dataLayout = ({content}) => (
 <br/><br/>
 
 
-            <Paper style={style} id="centered_box_data" zDepth={5} >
- <div className="center">
+            <Paper style={style} className="parent" id="centered_box_data" zDepth={5} >
+ <div className="center ">
  
 
        {content}

@@ -80,12 +80,15 @@ class First extends Component {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
  this.handleLogoutClick = this.handleLogoutClick.bind(this);
+ this.handlestart = this.handlestart.bind(this);
     this.state = {
        name: '',
-      isLoggedIn: 0,
+      isLoggedIn: -1,
                textFieldValue:"",
-               value:"datacom",
-                controlledDate:""
+               department:"datacom",
+                controlledDate:"",
+                shift:"shift 1",
+                value:"temp"
              };
 
                console.log("type of this.state "+ typeof this.state)
@@ -134,7 +137,7 @@ var name="controlledDate";
         let state = this.state;
     state[name] = value;
     this.setState({state});
-Meteor.call('workcenters',this.state.value ,function(error, result){
+Meteor.call('workcenters',this.state.department ,function(error, result){
 if(error){
 alert('Error');
 }else{
@@ -148,7 +151,28 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
 
 });
 
+    console.log("added item, this is the value "+this.state.department )
+    //try to retrieve
+    //this.setState({value});
+
+}
+handleChangeShift(name, event, index,value) 
+  { 
+    console.log("trying handlechange ")
+    console.log("this is the index "+index)
+    console.log("this is the event name"+ name)
+     console.log("this is the event value "+ value)
+    console.log("this is the event index"+ index)
+    //console.log("this is the event name" + event.target.name)
+
+    var name=name;
+        let state = this.state;
+    state[name] = value;
+    this.setState({state});
+
+
     console.log("added item, this is the value "+this.state.value )
+    console.log("added item, this is the shift "+this.state.shift )
     //try to retrieve
     //this.setState({value});
 
@@ -160,7 +184,7 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
 
 
 
-    if (this.state.isLoggedIn>=4)
+    if (this.state.isLoggedIn>=5)
       {
         this.setState({isLoggedIn: 0});
       }
@@ -188,6 +212,16 @@ console.log("type of workcenters in meteor call " + typeof workcenters)
    var current=this.state.isLoggedIn +1;
     this.setState({isLoggedIn: current});
       }
+    
+  }
+  handlestart() {
+    //Here I can change the state based on a click
+    console.log("this is the state "+ this.state.isLoggedIn)
+    //do input validation here
+
+   var current=this.state.isLoggedIn +1;
+    this.setState({isLoggedIn: current});
+      
     
   }
   handleLogoutClick() {
@@ -293,8 +327,8 @@ myClick() {
     
     let button = null;
     let button2 = null;
-
-   
+    let start = null;
+      start = <Start onClick={this.handlestart} />;
       button = <LoginButton onClick={this.handleLoginClick} />;
       button2 = <LogoutButton onClick={this.handleLogoutClick} />;
       var test=<TextField
@@ -305,10 +339,20 @@ myClick() {
       floatingLabelFixed={true}
       
     />
-if (isLoggedIn==0) {
+    if (isLoggedIn==-1) {
 
  return (
-      <div>
+      <div className="child">
+      
+          
+        {start}
+      </div>
+    );
+}
+else if (isLoggedIn==0) {
+
+ return (
+      <div className="child">
        {test}
         <br/>
           
@@ -319,7 +363,7 @@ if (isLoggedIn==0) {
 
     else if (isLoggedIn==1) {
     return (
-      <div>
+      <div className="child">
        <DatePicker
         hintText="Date"
        
@@ -333,7 +377,7 @@ if (isLoggedIn==0) {
   }
   else if (isLoggedIn==2) {
     return (
-      <div>
+      <div className="child">
        
        <SelectField
           name='test'
@@ -354,12 +398,12 @@ if (isLoggedIn==0) {
   }
     else if (isLoggedIn==3) {
     return (
-      <div>
+      <div className="child">
        <SelectField
           name='test'
           floatingLabelText="Department"
-          value={this.state.value}
-          onChange={this.handleChangeNew.bind(this,'value')}
+          value={this.state.department}
+          onChange={this.handleChangeNew.bind(this,'department')}
         >
           
            <MenuItem  value={"datacom"} primaryText="Datacom" />
@@ -381,13 +425,33 @@ if (isLoggedIn==0) {
   }
   else if (isLoggedIn==4) {
     return (
-      <div>
+      <div className="child">
        {this.renderTasks()}
         {button2} {button}
       </div>
     );
   }
-   
+   else if (isLoggedIn==5) {
+    return (
+      <div className="child">
+       <SelectField
+          name='test'
+          floatingLabelText="Shift"
+          value={this.state.shift? this.state.shift: null}
+          onChange={this.handleChangeShift.bind(this,'shift')}
+        >
+          
+           <MenuItem  value={"shift 1"} primaryText="Shift 1" />
+       <MenuItem  value={"shift 2"} primaryText="Shift 2" />
+       <MenuItem  value={"shift 3"} primaryText="Shift 3" />
+       
+        </SelectField>
+        <br/>
+        {button2} {button}
+          
+      </div>
+    );
+  }
 
   }
 
@@ -442,7 +506,12 @@ function LoginButton(props) {
     
   );
 }
-
+function Start(props) {
+  return (
+    <RaisedButton label="Start Data Entry" primary={true} onClick={props.onClick} />
+    
+  );
+}
 function LogoutButton(props) {
   return (
      <RaisedButton label="Previous" primary={true} onClick={props.onClick} />
