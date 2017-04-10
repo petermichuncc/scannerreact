@@ -12,9 +12,10 @@ Change the router from flow router to react router and test the performance bene
 */}
 {/*
 Work on storing all the data into a meteor collection.
-Work on getting components ready that I can use on the graph
+Work on getting components ready so that I can use on the graph
 pages
 
+Create components specifically for graph
 */}
 
 
