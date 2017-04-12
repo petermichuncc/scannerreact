@@ -59,6 +59,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import Paper from 'material-ui/Paper';
+import Blaze from 'meteor/gadicc:blaze-react-component';
 
 
 const style = {
@@ -90,7 +91,9 @@ class First extends Component {
                department:"datacom",
                 controlledDate:"",
                 shift:"shift 1",
-                value:"temp"
+                value:"temp",
+                planned:"",
+                actual:""
              };
 
                console.log("type of this.state "+ typeof this.state)
@@ -186,11 +189,11 @@ handleChangeShift(name, event, index,value)
 
 
 
-    if (this.state.isLoggedIn>=5)
+    if (this.state.isLoggedIn>=8)
       {
         this.setState({isLoggedIn: 0});
       }
-    else if (this.state.isLoggedIn>=0 &&this.state.isLoggedIn<5)
+    else if (this.state.isLoggedIn>=0 &&this.state.isLoggedIn<8)
       {
       //only increment if there is valid input
       //I could have multiple buttons here for each type of input
@@ -374,6 +377,7 @@ else if (isLoggedIn==0) {
         <br/>
           
         {button2} {button}
+       
       </div>
     );
   }
@@ -448,6 +452,47 @@ else if (isLoggedIn==0) {
        <MenuItem  value={"shift 3"} primaryText="Shift 3" />
        
         </SelectField>
+        <br/>
+        {button2} {button}
+          
+      </div>
+    );
+  }else if (isLoggedIn==6) {
+    return (
+      <div className="child">
+       <TextField
+      name='name' value={this.state.planned}
+      onChange={this.handleChange.bind(this, 'planned')}
+      hintText="planned"
+      floatingLabelText="Please enter planned"
+      floatingLabelFixed={true}
+      
+    />
+        <br/>
+        {button2} {button}
+          
+      </div>
+    );
+  }else if (isLoggedIn==7) {
+    return (
+      <div className="child">
+       <TextField
+      name='name' value={this.state.actual}
+      onChange={this.handleChange.bind(this, 'actual')}
+      hintText="actual"
+      floatingLabelText="Please enter actual"
+      floatingLabelFixed={true}
+      
+    />
+        <br/>
+        {button2} {button}
+          
+      </div>
+    );
+  }else if (isLoggedIn==8) {
+    return (
+      <div className="child">
+       
         <br/>
         {button2} {button}
           
