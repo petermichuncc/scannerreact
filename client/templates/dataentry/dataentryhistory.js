@@ -17,6 +17,7 @@ Template.history.helpers({
    //ReactiveMethod.call('dataHistory',start)
    var data=ReactiveMethod.call('dataHistory',start)
    //console.log("this is the data "+ data)
+   console.log('this is history ' + data)
    return data
      // return Dataentries.find({timestamp: {$gte: start}})
 

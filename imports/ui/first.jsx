@@ -492,7 +492,7 @@ else if (isLoggedIn==0) {
   }else if (isLoggedIn==8) {
     return (
       <div className="child">
-       
+          <Blaze template="finaltest" />
         <br/>
         {button2} {button}
           
