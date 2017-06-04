@@ -492,7 +492,13 @@ else if (isLoggedIn==0) {
   }else if (isLoggedIn==8) {
     return (
       <div className="child">
-          <Blaze template="finaltest" />
+          <Blaze template="finaltest" />]
+          {/*
+              I need to make new buttons for the data 
+              entry history, entry search, entries this week,
+              entries today
+
+          */}
         <br/>
         {button2} {button}
           
