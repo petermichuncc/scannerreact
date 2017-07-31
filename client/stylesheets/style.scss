@@ -19,13 +19,27 @@ Footer
 
 
 .parent {
-  position: relative;
+   position: relative;
+  background: white;
+  height: 200px;
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  resize: both;
+  overflow: auto;
 }
+
 .child {
+  background: black;
+  color: white;
+  width: 50%;
+  transform: translate(-50%, -50%);
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 20px;
+  resize: both;
+  overflow: auto;
 }
 
 
@@ -539,15 +553,25 @@ margin: 0 auto;
     font-size:125%;
 
 }
-
-#centered_box_data{
+.centered_box_logo{
+    height:20vh;
     background: #ffffff ;
     padding: 2%;
     /*box-shadow: 5px 5px 15px #888888;*/
     color: black;
     font-size:125%;
-       width    : 700px;
-   margin: 0 auto;
+       width    : 30vw;
+
+}
+.centered_box_data{
+    
+    background: #ffffff ;
+    padding: 2%;
+    /*box-shadow: 5px 5px 15px #888888;*/
+    color: black;
+    font-size:125%;
+       width    : 50vw;
+
 }
 .mytextnoalign {
    
@@ -628,14 +652,5 @@ body {
     width: 100%
 }
 
-.divcenter {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 100px;
-    height: 100px;
-}
 
 //@import "{poetic:materialize-scss}/sass/materialize.scss";

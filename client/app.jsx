@@ -42,29 +42,29 @@ export const dataLayout = ({content}) => (
 <MuiThemeProvider>
 {/*  Here is the div used for the first app */}
 
- 
- <div id="dataentry_container" className="divcenter" >
-      <Paper style={style2} id="centered_box_data" zDepth={5} >
+ <div className="parent">
+<div className="child">
+      <Paper style={style2} className="centered_box_logo" zDepth={5} >
 <img src="logo.jpg"  />
 </Paper>
 <br/><br/>
 
 
-            <Paper style={style} className="parent" id="centered_box_data" zDepth={5} >
- <div className="center ">
- 
+            <Paper style={style} className="centered_box_data"zDepth={5} >
+
 
        {content}
 
-</div>
+
 </Paper>
 <br/>
 
 
-
 </div>
 
 
+
+</div>
 
 </MuiThemeProvider>
  

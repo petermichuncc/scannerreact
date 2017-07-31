@@ -59,7 +59,6 @@ twbs:bootstrap
 u2622:persistent-session
 underscore
 yogiben:autoform-modals
-fourseven:scss
 arillo:flow-router-helpers
 gadicc:blaze-react-component
 react-template-helper

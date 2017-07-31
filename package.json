@@ -5,7 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "babel-runtime": "6.18.0",
+    "babel-runtime": "^6.18.0",
     "classnames": "^2.2.5",
     "history": "^3.0.0",
     "ibm_db": "0.0.14",
@@ -19,7 +19,7 @@
     "mongo-xlsx": "^1.0.12",
     "node-interval": "^0.1.1",
     "node-jt400": "^1.0.1",
-    "node-schedule": "^1.1.1",
+    "node-schedule": "^1.2.3",
     "odbc": "^1.2.1",
     "react": "^15.4.2",
     "react-addons": "^0.9.1-deprecated",
